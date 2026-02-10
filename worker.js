@@ -389,80 +389,63 @@ const INDEX = `<!doctype html>
 </body>
 </html>`;
 
-// 🔐 CONFIGURACIÓN PRIVADA
+// 🔐 CONFIGURACIÓN PRIVADA Y CONTROLADOR PRINCIPAL
 export default {
-  async fetch(request, env) { // 'env' es la clave para la privacidad
+  async fetch(request, env) {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    if (pathname === '/api/address-search') {
-      return handleAddressSearch(request, url, env); // Pasamos 'env'
+    try {
+      // 1. API DE BÚSQUEDA DE DIRECCIONES
+      if (pathname === '/api/address-search') {
+        const query = url.searchParams.get('q');
+        if (!query) return new Response(JSON.stringify([]), { status: 400 });
+
+        // IMPORTANTE: Se usa env.LOCATION_IQ_KEY (Configúralo en Cloudflare Workers -> Settings -> Variables)
+        const response = await fetch(
+          `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
+        );
+        const data = await response.json();
+        return new Response(JSON.stringify(data), {
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      // 2. API DE GUARDAR PAGO Y ENVÍO DE EMAIL
+      if (pathname === '/api/save-payment') {
+        return await handleSavePayment(request, env);
+      }
+
+      // 3. CARGA DE LA PÁGINA PRINCIPAL
+      return new Response(INDEX, {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
-    if (pathname === '/api/save-payment') {
-      return handleSavePayment(request, env); // Pasamos 'env'
-    }
-
-    return new Response(INDEX, {
-      headers: { 'Content-Type': 'text/html; charset=utf-8' }
-    });
   }
-};;
+};
 
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
-
-async function handleRequest(request) {
-  const url = new URL(request.url);
-  const pathname = url.pathname;
-
-  if (pathname === '/api/address-search') {
-    return handleAddressSearch(request, url);
-  }
-  if (pathname === '/api/save-payment') {
-    return handleSavePayment(request);
-  }
-
-  return new Response(INDEX, {
-    headers: { 'Content-Type': 'text/html; charset=utf-8' }
-  });
-}
-
-async function handleAddressSearch(request, url) {
-  const query = url.searchParams.get('q');
-  
-  if (!query) return new Response(JSON.stringify([]), { status: 400 });
-  
-  try {
-    const response = await fetch(
-      `https://us1.locationiq.com/v1/autocomplete.php?key=${CONFIG.locationIqApiKey}&q=${encodeURIComponent(query)}&format=json&limit=5`
-    );
-    const data = await response.json();
-    
-    return new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-  }
-}
+// --- FUNCIONES DE APOYO ---
 
 async function handleSavePayment(request, env) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
   }
-  
+
   try {
     const paymentData = await request.json();
-    
-    // Obtener datos actuales del Bin
+
+    // A. Obtener datos actuales del Bin (JSONBin)
     const getBinResponse = await fetch(
       `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
       {
         method: 'GET',
-        headers: {
-          'X-Master-Key': env.JSON_BIN_KEY
-        }
+        headers: { 'X-Master-Key': env.JSON_BIN_KEY }
       }
     );
 
@@ -472,9 +455,9 @@ async function handleSavePayment(request, env) {
       pagos = binData.record.pagos || [];
     }
 
-    // Añadir el nuevo pago
-    pagos.push({
-      id: paymentData.id,
+    // B. Añadir el nuevo registro estructurado
+    const nuevoPago = {
+      id: paymentData.id || `ORD-${Date.now()}`,
       cliente: {
         nombre: paymentData.name,
         email: paymentData.email,
@@ -482,27 +465,23 @@ async function handleSavePayment(request, env) {
         pais: paymentData.country
       },
       ubicacion: {
-        direccion_completa: paymentData.address,
-        coordenadas: {
-          lat: paymentData.lat || null,
-          lon: paymentData.lon || null
-        }
+        direccion_completa: paymentData.address
       },
       pago: {
         monto: paymentData.amount,
         moneda: paymentData.currency,
         estado: 'payment_completed',
-        metodo: 'Onramper_USDT_Polygon',
-        txHash: paymentData.txHash || null
+        metodo: 'Onramper_USDT_Polygon'
       },
       metadata: {
         producto: 'MINIWASH',
-        fecha_creacion: new Date().toISOString(),
-        fecha_pago: new Date().toLocaleString('es-ES')
+        fecha_creacion: new Date().toISOString()
       }
-    });
+    };
 
-    // Actualizar el Bin en JSONBin
+    pagos.push(nuevoPago);
+
+    // C. Actualizar JSONBin
     const updateBinResponse = await fetch(
       `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
       {
@@ -515,16 +494,12 @@ async function handleSavePayment(request, env) {
       }
     );
 
-    if (!updateBinResponse.ok) {
-      throw new Error('Error al guardar pago en JSONBin');
-    }
+    if (!updateBinResponse.ok) throw new Error('Error al guardar en JSONBin');
 
-    // Enviar Email de confirmación vía EmailJS
+    // D. Enviar Email vía EmailJS
     const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         service_id: env.EMAILJS_SERVICE_ID,
         template_id: env.EMAILJS_TEMPLATE_ID,
@@ -532,51 +507,25 @@ async function handleSavePayment(request, env) {
         template_params: {
           to_email: paymentData.email,
           to_name: paymentData.name,
-          order_id: paymentData.id,
+          order_id: nuevoPago.id,
           amount: paymentData.currency === 'EUR' ? '49€' : '$49',
-          currency: paymentData.currency,
-          address: paymentData.address,
-          transaction_hash: paymentData.txHash || 'pending',
-          message: `Tu pedido #${paymentData.id} ha sido confirmado. Tu MINIWASH está siendo preparado para envío.`
+          address: paymentData.address
         }
       })
     });
 
     return new Response(JSON.stringify({ 
       ok: true, 
-      message: 'Pago guardado y email enviado',
-      order_id: paymentData.id
+      message: 'Proceso completado con éxito',
+      order_id: nuevoPago.id 
     }), {
       headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ 
-      ok: false,
-      error: err.message 
-    }), { status: 500 });
-  }
-}
-
-    if (!emailResponse.ok) {
-      console.warn('⚠️ Error al enviar email, pero el pago se guardó');
-    } else {
-      console.log('✅ Email enviado al cliente');
-    }
-
-    return new Response(JSON.stringify({ 
-      ok: true, 
-      message: 'Pago guardado y email enviado',
-      order_id: paymentData.id
-    }), {
+    return new Response(JSON.stringify({ ok: false, error: err.message }), { 
+      status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
-
-  } catch (err) {
-    console.error('❌ Error procesando pago:', err);
-    return new Response(JSON.stringify({ 
-      ok: false,
-      error: err.message 
-    }), { status: 500 });
   }
 }
