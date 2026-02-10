@@ -9,6 +9,4 @@ routes = [
   { pattern = "www.tudominio.com/*", zone_name = "tudominio.com" }
 ]
 
-# Variables de entorno (si Cloudflare las maneja)
-[env.production.vars]
-LOCATION_IQ_KEY = "pk_5e06b6a83b83a"
+
