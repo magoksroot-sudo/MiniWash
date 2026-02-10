@@ -254,9 +254,10 @@ const INDEX = `<!doctype html>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const ONRAMPER_URLS = {
-      EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
-      USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false'
-    };
+  // Añadimos el redirectUrl para que vuelvan a tu dominio y se active el guardado en el Bin
+  EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&redirectUrl=https://miniwash.eu.org',
+  USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&redirectUrl=https://miniwash.eu.org'
+};
 
     const modal = document.getElementById('reserveModal');
     const closeBtn = document.getElementById('closeModal');
@@ -383,6 +384,39 @@ const INDEX = `<!doctype html>
         }, 500);
       });
     }
+// --- CÓDIGO DE DETECCIÓN DE RETORNO ---
+const urlParams = new URLSearchParams(window.location.search);
+// Si la URL contiene parámetros de Onramper o si hay algo en el bolsillo (sessionStorage)
+if (sessionStorage.getItem('miniwash_reservation')) {
+    const savedData = JSON.parse(sessionStorage.getItem('miniwash_reservation'));
+    
+    if (savedData && savedData.status === 'pending_payment') {
+        // Mostramos un mensaje de "Procesando su pago..."
+        confirmReserveBtn.disabled = true;
+        confirmReserveBtn.innerHTML = '⏳ Confirmando reserva...';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+
+        fetch('/api/save-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(savedData)
+        })
+        .then(res => res.json())
+        .then(resData => {
+            if(resData.ok) {
+                // Éxito: Limpiamos el bolsillo y avisamos
+                sessionStorage.removeItem('miniwash_reservation');
+                alert('¡GRACIAS! Pago verificado. Tu número de pedido es: ' + resData.order_id);
+                window.location.href = '/'; // Limpiamos la URL de parámetros raros
+            }
+        })
+        .catch(err => {
+            console.error('Error al guardar:', err);
+            alert('Hubo un problema al registrar tu pago. Contacta con soporte.');
+        });
+    }
+}
   });
 <\/script>
 
