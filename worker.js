@@ -480,7 +480,7 @@ async function handleSaveReservation(request) {
     const binResponse = await fetch(
       `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinReservasId}`,
       {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': CONFIG.jsonBinApiKey
