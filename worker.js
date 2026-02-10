@@ -390,15 +390,23 @@ const INDEX = `<!doctype html>
 </html>`;
 
 // 🔐 CONFIGURACIÓN PRIVADA
-const CONFIG = {
-  locationIqApiKey: 'pk_5e06b6a83b83a',
-  jsonBinReservasId: '6989b4c943b1c97be971665c',
-  jsonBinPagosId: '6989b551ae596e708f1d3940',
-  jsonBinApiKey: '$2a$10$B2cNnu655L5eJEmbC5RS7euMLyb9jmsdGmsvyxWWVb6bclH/0D2VS',
-  emailjsServiceId: 'service_oplyt2g',
-  emailjsTemplateId: 'template_qyj8ure',
-  emailjsPublicKey: 'reJMUB5suajjDVUYf'
-};
+export default {
+  async fetch(request, env) { // 'env' es la clave para la privacidad
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+
+    if (pathname === '/api/address-search') {
+      return handleAddressSearch(request, url, env); // Pasamos 'env'
+    }
+    if (pathname === '/api/save-payment') {
+      return handleSavePayment(request, env); // Pasamos 'env'
+    }
+
+    return new Response(INDEX, {
+      headers: { 'Content-Type': 'text/html; charset=utf-8' }
+    });
+  }
+};;
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
@@ -439,7 +447,7 @@ async function handleAddressSearch(request, url) {
   }
 }
 
-async function handleSavePayment(request) {
+async function handleSavePayment(request, env) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
   }
@@ -447,12 +455,13 @@ async function handleSavePayment(request) {
   try {
     const paymentData = await request.json();
     
+    // Obtener datos actuales del Bin
     const getBinResponse = await fetch(
-      `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinPagosId}`,
+      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
       {
         method: 'GET',
         headers: {
-          'X-Master-Key': CONFIG.jsonBinApiKey
+          'X-Master-Key': env.JSON_BIN_KEY
         }
       }
     );
@@ -463,6 +472,7 @@ async function handleSavePayment(request) {
       pagos = binData.record.pagos || [];
     }
 
+    // Añadir el nuevo pago
     pagos.push({
       id: paymentData.id,
       cliente: {
@@ -492,13 +502,14 @@ async function handleSavePayment(request) {
       }
     });
 
+    // Actualizar el Bin en JSONBin
     const updateBinResponse = await fetch(
-      `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinPagosId}`,
+      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'X-Master-Key': CONFIG.jsonBinApiKey
+          'X-Master-Key': env.JSON_BIN_KEY
         },
         body: JSON.stringify({ pagos: pagos })
       }
@@ -508,17 +519,16 @@ async function handleSavePayment(request) {
       throw new Error('Error al guardar pago en JSONBin');
     }
 
-    console.log('✅ Pago guardado en BIN 2');
-
+    // Enviar Email de confirmación vía EmailJS
     const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        service_id: CONFIG.emailjsServiceId,
-        template_id: CONFIG.emailjsTemplateId,
-        user_id: CONFIG.emailjsPublicKey,
+        service_id: env.EMAILJS_SERVICE_ID,
+        template_id: env.EMAILJS_TEMPLATE_ID,
+        user_id: env.EMAILJS_PUBLIC_KEY,
         template_params: {
           to_email: paymentData.email,
           to_name: paymentData.name,
@@ -531,6 +541,22 @@ async function handleSavePayment(request) {
         }
       })
     });
+
+    return new Response(JSON.stringify({ 
+      ok: true, 
+      message: 'Pago guardado y email enviado',
+      order_id: paymentData.id
+    }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({ 
+      ok: false,
+      error: err.message 
+    }), { status: 500 });
+  }
+}
 
     if (!emailResponse.ok) {
       console.warn('⚠️ Error al enviar email, pero el pago se guardó');
