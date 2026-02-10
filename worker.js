@@ -194,7 +194,6 @@ const INDEX = `<!doctype html>
     </footer>
   </main>
 
-  <!-- MODAL -->
   <div id="reserveModal" class="fixed inset-0 z-60 hidden items-center justify-center bg-olive/20 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
     <div class="bg-[#F7FAF7] rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
       <button id="closeModal" class="absolute right-4 top-4 text-gray-500 text-2xl font-bold">✕</button>
@@ -301,7 +300,6 @@ const INDEX = `<!doctype html>
       if (e.target === modal) closeModal();
     });
 
-    // AUTOCOMPLETE DE DIRECCIONES
     if (addressInput) {
       addressInput.addEventListener('input', function(e) {
         const query = e.target.value.trim();
@@ -351,7 +349,6 @@ const INDEX = `<!doctype html>
       });
     }
 
-    // SUBMIT DEL FORMULARIO
     if (reserveForm) {
       reserveForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -377,23 +374,10 @@ const INDEX = `<!doctype html>
           status: 'pending_payment'
         };
 
-        // Guardar en sessionStorage
         sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
-
-        // 📡 GUARDAR EN BIN 1 (reserva sin pagar)
-        try {
-          await fetch('/api/save-reservation', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clientData)
-          });
-        } catch (err) {
-          console.warn('Error guardando reserva:', err);
-        }
 
         confirmReserveBtn.innerHTML = '⏳ Redirigiendo...';
         
-        // Redirigir a Onramper para pagar
         setTimeout(() => {
           window.location.href = ONRAMPER_URLS[currency];
         }, 500);
@@ -405,11 +389,11 @@ const INDEX = `<!doctype html>
 </body>
 </html>`;
 
-// 🔐 CONFIGURACIÓN PRIVADA (NUNCA se ve en cliente)
+// 🔐 CONFIGURACIÓN PRIVADA
 const CONFIG = {
   locationIqApiKey: 'pk_5e06b6a83b83a',
-  jsonBinReservasId: '6989b4c943b1c97be971665c',  // BIN 1: Reservas SIN PAGAR
-  jsonBinPagosId: '6989b551ae596e708f1d3940',     // BIN 2: Pagos COMPLETADOS
+  jsonBinReservasId: '6989b4c943b1c97be971665c',
+  jsonBinPagosId: '6989b551ae596e708f1d3940',
   jsonBinApiKey: '$2a$10$B2cNnu655L5eJEmbC5RS7euMLyb9jmsdGmsvyxWWVb6bclH/0D2VS',
   emailjsServiceId: 'service_oplyt2g',
   emailjsTemplateId: 'template_qyj8ure',
@@ -424,26 +408,18 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
-  // 🛡️ RUTAS VIRTUALES PRIVADAS
   if (pathname === '/api/address-search') {
     return handleAddressSearch(request, url);
-  }
-  if (pathname === '/api/save-reservation') {
-    return handleSaveReservation(request);
   }
   if (pathname === '/api/save-payment') {
     return handleSavePayment(request);
   }
 
-  // 📄 Por defecto, sirve el index (SPA)
   return new Response(INDEX, {
     headers: { 'Content-Type': 'text/html; charset=utf-8' }
   });
 }
 
-// ========================================
-// 📍 RUTA 1: Búsqueda de direcciones
-// ========================================
 async function handleAddressSearch(request, url) {
   const query = url.searchParams.get('q');
   
@@ -463,62 +439,6 @@ async function handleAddressSearch(request, url) {
   }
 }
 
-// ========================================
-// 💾 RUTA 2: Guardar RESERVA (BIN 1)
-// Se llama CUANDO EL CLIENTE PRESIONA "Confirmar y pagar"
-// ANTES de redirigir a Onramper
-// ========================================
-async function handleSaveReservation(request) {
-  if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-  
-  try {
-    const clientData = await request.json();
-    
-    // 📤 GUARDAR EN BIN 1 (JSONBin - Reservas sin pagar)
-    const binResponse = await fetch(
-      `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinReservasId}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': CONFIG.jsonBinApiKey
-        },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          order: clientData,
-          status: 'pending_payment',
-          saved_at: new Date().toLocaleString('es-ES')
-        })
-      }
-    );
-
-    if (!binResponse.ok) {
-      throw new Error('Error al guardar en JSONBin');
-    }
-
-    console.log('✅ Reserva guardada en BIN 1');
-
-    return new Response(JSON.stringify({ 
-      ok: true, 
-      message: 'Reserva guardada. Redirigiendo a pago...',
-      bin: 'reservas'
-    }), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-  } catch (err) {
-    console.error('❌ Error guardando reserva:', err);
-    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
-  }
-}
-
-// ========================================
-// 💳 RUTA 3: Guardar PAGO (BIN 2) + ENVIAR EMAIL
-// Se llama DESPUÉS de que Onramper confirma el pago
-// EL CLIENTE LLAMA A ESTO desde /confirmation o webhook
-// ========================================
 async function handleSavePayment(request) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
@@ -527,10 +447,52 @@ async function handleSavePayment(request) {
   try {
     const paymentData = await request.json();
     
-    // ===============================================
-    // 1️⃣ GUARDAR EN BIN 2 (JSONBin - Pagos completados)
-    // ===============================================
-    const binResponse = await fetch(
+    const getBinResponse = await fetch(
+      `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinPagosId}`,
+      {
+        method: 'GET',
+        headers: {
+          'X-Master-Key': CONFIG.jsonBinApiKey
+        }
+      }
+    );
+
+    let pagos = [];
+    if (getBinResponse.ok) {
+      const binData = await getBinResponse.json();
+      pagos = binData.record.pagos || [];
+    }
+
+    pagos.push({
+      id: paymentData.id,
+      cliente: {
+        nombre: paymentData.name,
+        email: paymentData.email,
+        telefono: paymentData.phone,
+        pais: paymentData.country
+      },
+      ubicacion: {
+        direccion_completa: paymentData.address,
+        coordenadas: {
+          lat: paymentData.lat || null,
+          lon: paymentData.lon || null
+        }
+      },
+      pago: {
+        monto: paymentData.amount,
+        moneda: paymentData.currency,
+        estado: 'payment_completed',
+        metodo: 'Onramper_USDT_Polygon',
+        txHash: paymentData.txHash || null
+      },
+      metadata: {
+        producto: 'MINIWASH',
+        fecha_creacion: new Date().toISOString(),
+        fecha_pago: new Date().toLocaleString('es-ES')
+      }
+    });
+
+    const updateBinResponse = await fetch(
       `https://api.jsonbin.io/v3/b/${CONFIG.jsonBinPagosId}`,
       {
         method: 'PUT',
@@ -538,25 +500,16 @@ async function handleSavePayment(request) {
           'Content-Type': 'application/json',
           'X-Master-Key': CONFIG.jsonBinApiKey
         },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          order: paymentData,
-          status: 'payment_completed',
-          paid_at: new Date().toLocaleString('es-ES'),
-          transaction_hash: paymentData.txHash || 'pending_confirmation'
-        })
+        body: JSON.stringify({ pagos: pagos })
       }
     );
 
-    if (!binResponse.ok) {
+    if (!updateBinResponse.ok) {
       throw new Error('Error al guardar pago en JSONBin');
     }
 
     console.log('✅ Pago guardado en BIN 2');
 
-    // ===============================================
-    // 2️⃣ ENVIAR EMAIL AL CLIENTE (EmailJS)
-    // ===============================================
     const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: {
@@ -585,14 +538,10 @@ async function handleSavePayment(request) {
       console.log('✅ Email enviado al cliente');
     }
 
-    // ===============================================
-    // 3️⃣ RESPUESTA AL CLIENTE
-    // ===============================================
     return new Response(JSON.stringify({ 
       ok: true, 
       message: 'Pago guardado y email enviado',
-      order_id: paymentData.id,
-      bin: 'pagos'
+      order_id: paymentData.id
     }), {
       headers: { 'Content-Type': 'application/json' }
     });
