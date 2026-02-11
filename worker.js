@@ -1,13 +1,13 @@
-// 🔐 TU HTML COMPLETO AQUÍ
+// 🔐 YOUR COMPLETE HTML HERE
 const INDEX = `<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MINIWASH® — Pureza y eficiencia urbana | Reserva 49€</title>
-  <meta name="description" content="MINIWASH® — Mini lavadora plegable con desinfección UV. -50% agua, portátil y rápida. Ideal para bebés, viajeros y apartamentos. Reserva ahora 49€." />
-  <meta name="keywords" content="mini lavadora, portátil, UV, desinfección, lavadora plegable, Miniwash, 49€" />
-  <meta property="og:title" content="MINIWASH® — Pureza y eficiencia urbana" />
+  <title>MINIWASH® — Urban purity and efficiency | Reserve for €49</title>
+  <meta name="description" content="MINIWASH® —Mini foldable washing machine with UV disinfection. Uses 50% less water, is portable, and fast. Ideal for babies, travelers, and apartments. Reserve now for €49." />
+  <meta name="keywords" content="Mini washing machine, portable, UV disinfection, foldable washing machine, Miniwash, €49" />
+  <meta property="og:title" content="MINIWASH® — Urban purity and efficiency" />
   <meta property="og:description" content="Mini lavadora plegable con desinfección UV. -50% agua, portátil y rápida. Reserva ahora 49€." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200" />
   <meta property="og:type" content="product" />
@@ -57,9 +57,9 @@ const INDEX = `<!doctype html>
   {
     "@context":"https://schema.org",
     "@type":"Product",
-    "name":"MINIWASH® Mini Lavadora Plegable",
+    "name":"MINIWASH® Mini Foldable Washing Machine",
     "image":["https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200"],
-    "description":"Mini lavadora portátil plegable con luz UV para desinfección. Ahorro de agua, diseñada para prendas delicadas, bebés y viajeros.",
+    "description":"Mini portable foldable washing machine with UV light for disinfection. Water-saving, designed for delicate garments, babies, and travelers.",
     "brand":{"@type":"Brand","name":"MINIWASH"},
     "offers":{
       "@type":"Offer",
@@ -74,12 +74,12 @@ const INDEX = `<!doctype html>
 </head>
 <body>
 
-  <a class="skip" href="#main">Saltar al contenido</a>
+  <a class="skip" href="#main">Skip to content</a>
 
   <nav class="fixed top-4 inset-x-4 z-50">
     <div class="max-w-[var(--content-width)] mx-auto glass-premium p-3 rounded-full flex items-center justify-between gap-4">
       <div class="flex items-center gap-4">
-        <a aria-label="Inicio MINIWASH" class="text-xl font-extrabold tracking-tight uppercase">
+        <a aria-label="Start MINIWASH" class="text-xl font-extrabold tracking-tight uppercase">
           Miniwash<span class="text-olive">.</span>
         </a>
       </div>
@@ -97,14 +97,14 @@ const INDEX = `<!doctype html>
       <section class="grid lg:grid-cols-2 gap-10 items-center py-12">
         <div>
           <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-            EFICIENCIA <span class="text-olive">SIN LÍMITES</span>
+            EFFICIENCY <span class="text-olive">SIN LÍMITES</span>
           </h1>
           <p class="mt-4 text-gray-600 text-base md:text-lg max-w-xl">
-            MINIWASH®: mini lavadora plegable con desinfección UV. Consume hasta <strong>-50% agua</strong>, protege prendas delicadas y viaja contigo. Diseño urbano pensado para resultados profesionales.
+            MINIWASH®: Mini foldable washing machine with UV disinfection. Consumes up to <strong>-50% agua</strong>, Protects delicate garments and travels with you. Urban design created for professional results.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
-            <a id="cta-primary" data-reserva class="bg-olive text-white px-6 py-3 rounded-2xl font-bold text-sm uppercase pulse-cta focus-ring">RESERVAR 49€</a>
-            <button id="cta-demo" class="border border-gray-200 px-5 py-3 rounded-2xl text-sm font-semibold focus-ring">VER DEMO RÁPIDA</button>
+            <a id="cta-primary" data-reserva class="bg-olive text-white px-6 py-3 rounded-2xl font-bold text-sm uppercase pulse-cta focus-ring">RESERVE 49€</a>
+            <button id="cta-demo" class="border border-gray-200 px-5 py-3 rounded-2xl text-sm font-semibold focus-ring">VIEW QUICK DEMO</button>
           </div>
           <div class="mt-6 flex items-center gap-4 text-sm text-gray-500">
             <div class="badge-uv">
@@ -113,7 +113,7 @@ const INDEX = `<!doctype html>
             </div>
             <div class="flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2L15 8H9L12 2Z" fill="#556B2F"/><\/svg>
-              <span>Entrega cuidada, seguimiento incluido</span>
+              <span>Careful delivery, tracking included</span>
             </div>
           </div>
         </div>
@@ -138,15 +138,15 @@ const INDEX = `<!doctype html>
     <section id="features" class="py-12 bg-white">
       <div class="max-w-[var(--content-width)] mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
         <div class="space-y-6">
-          <h2 class="text-3xl font-extrabold">Diseñada para el <span class="italic font-light">estilo de vida móvil</span></h2>
-          <p class="text-gray-600">No es sólo portabilidad; es libertad.</p>
+          <h2 class="text-3xl font-extrabold">Designed for the <span class="italic font-light">estilo de vida móvil</span></h2>
+          <p class="text-gray-600">It's not just portability; it's freedom.</p>
           <ul class="grid sm:grid-cols-2 gap-4 mt-4">
             <li class="p-4 card-radius border border-gray-100 glass-premium">
               <div class="flex items-start gap-3">
                 <div class="w-10 h-10 flex items-center justify-center bg-olive/10 rounded-lg text-olive font-bold">01</div>
                 <div>
                   <h4 class="font-bold">Plegable</h4>
-                  <p class="text-sm text-gray-500">Ocupa menos que una caja de zapatos.</p>
+                  <p class="text-sm text-gray-500">It takes up less space than a shoebox.</p>
                 </div>
               </div>
             </li>
@@ -155,7 +155,7 @@ const INDEX = `<!doctype html>
                 <div class="w-10 h-10 flex items-center justify-center bg-olive/10 rounded-lg text-olive font-bold">02</div>
                 <div>
                   <h4 class="font-bold">Higiene UV</h4>
-                  <p class="text-sm text-gray-500">Desinfección integrada.</p>
+                  <p class="text-sm text-gray-500">Integrated disinfection.</p>
                 </div>
               </div>
             </li>
@@ -181,24 +181,25 @@ const INDEX = `<!doctype html>
         </div>
 
         <aside id="store" class="p-8 bg-[#F0F4F0] rounded-[2rem] text-center shadow-md">
-          <div class="text-sm uppercase tracking-widest text-gray-400">Oferta por tiempo limitado</div>
+          <div class="text-sm uppercase tracking-widest text-gray-400">Limited time offer</div>
           <div class="text-5xl font-black text-olive my-4">49€</div>
-          <button class="w-full bg-olive text-white py-4 rounded-2xl font-black text-lg shadow-xl pulse-cta" id="storeReserveBtn">RESERVAR AHORA</button>
-          <p class="mt-4 text-[13px] text-gray-500">Pago seguro • Entrega cuidada</p>
+          <button class="w-full bg-olive text-white py-4 rounded-2xl font-black text-lg shadow-xl pulse-cta" id="storeReserveBtn">BOOK NOW</button>
+          <p class="mt-4 text-[13px] text-gray-500">Secure payment • Careful delivery</p>
         </aside>
       </div>
     </section>
 
-    <footer class="py-8 border-t border-gray-100 mt-12 max-w-[var(--content-width)] mx-auto px-6">
-      <div class="text-sm text-gray-600">© <strong>MINIWASH</strong> — Todos los derechos reservados</div>
-    </footer>
+    <footer class="py-8 border-t border-gray-100 mt-12 max-w-[var(--content-width)] mx-auto px-6 flex justify-between items-center">
+  <div class="text-sm text-gray-600">© <strong>MINIWASH</strong> — All rights reserved</div>
+  <button onclick="document.getElementById('legalModal').classList.remove('hidden'); document.getElementById('legalModal').classList.add('flex')" class="text-xs text-gray-400 underline uppercase tracking-widest font-bold">Terms & Privacy</button>
+</footer>
   </main>
 
   <div id="reserveModal" class="fixed inset-0 z-60 hidden items-center justify-center bg-olive/20 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
     <div class="bg-[#F7FAF7] rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
       <button id="closeModal" class="absolute right-4 top-4 text-gray-500 text-2xl font-bold">✕</button>
-      <h4 class="text-xl font-extrabold mb-2">Reserva tu MINIWASH — 49€</h4>
-      <p class="text-sm text-gray-600 mb-6">Rellena los datos y te enviaremos confirmación.</p>
+      <h4 class="text-xl font-extrabold mb-2">Book your MINIWASH — €49</h4>
+      <p class="text-sm text-gray-600 mb-6">Fill in the details and we'll send you confirmation.</p>
 
       <form id="reserveForm" class="space-y-4" autocomplete="on" novalidate>
         <div>
@@ -207,15 +208,15 @@ const INDEX = `<!doctype html>
         </div>
         <div>
           <label class="text-xs font-semibold">Email *</label>
-          <input name="email" type="email" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="tu@correo.com" />
+          <input name="email" type="email" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="miniwash@outlook.es" />
         </div>
         <div>
           <label class="text-xs font-semibold">Teléfono</label>
-          <input name="phone" inputmode="tel" class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="+34 6XX XXX XXX" />
+          <input name="phone" inputmode="tel" class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="+1 123456789" />
         </div>
         <div>
           <label class="text-xs font-semibold">País *</label>
-          <input name="country" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="Ej. España" />
+          <input name="country" required class="w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="Ej. Spain" />
         </div>
 
         <div>
@@ -244,8 +245,8 @@ const INDEX = `<!doctype html>
         </div>
 
         <div class="flex gap-3 pt-4">
-          <button type="submit" id="confirmReserve" class="flex-1 bg-olive text-white py-3 rounded-lg font-bold">Confirmar y pagar</button>
-          <button type="button" id="payLater" class="flex-1 border border-gray-300 py-3 rounded-lg font-semibold">Pagar después</button>
+          <button type="submit" id="confirmReserve" class="flex-1 bg-olive text-white py-3 rounded-lg font-bold">Confirm and pay</button>
+          <button type="button" id="payLater" class="flex-1 border border-gray-300 py-3 rounded-lg font-semibold">Pay later</button>
         </div>
       </form>
     </div>
@@ -254,7 +255,7 @@ const INDEX = `<!doctype html>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const ONRAMPER_URLS = {
-  // Añadimos el redirectUrl para que vuelvan a tu dominio y se active el guardado en el Bin
+  // We added the redirectUrl so that they return to your domain and the saving in the Bin is activated
   EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&redirectUrl=https://miniwash.eu.org',
   USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&redirectUrl=https://miniwash.eu.org'
 };
@@ -325,7 +326,7 @@ const INDEX = `<!doctype html>
             addressLoader.classList.add('hidden');
 
             if (!results || results.length === 0) {
-              addressSuggestions.innerHTML = '<div class="p-3 text-sm">No encontrado</div>';
+              addressSuggestions.innerHTML = '<div class="p-3 text-sm">Not found</div>';
               addressSuggestions.classList.remove('hidden');
               return;
             }
@@ -375,25 +376,25 @@ const INDEX = `<!doctype html>
           status: 'pending_payment'
         };
 
-        sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
+        localStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
 
-        confirmReserveBtn.innerHTML = '⏳ Redirigiendo...';
+        confirmReserveBtn.innerHTML = '⏳ Redirecting...';
         
         setTimeout(() => {
           window.location.href = ONRAMPER_URLS[currency];
         }, 500);
       });
     }
-// --- CÓDIGO DE DETECCIÓN DE RETORNO ---
+// --- RETURN DETECTION CODE ---
 const urlParams = new URLSearchParams(window.location.search);
-// Si la URL contiene parámetros de Onramper o si hay algo en el bolsillo (sessionStorage)
-if (sessionStorage.getItem('miniwash_reservation')) {
-    const savedData = JSON.parse(sessionStorage.getItem('miniwash_reservation'));
+// Si la URL contiene parámetros de Onramper o si hay algo en el bolsillo (localStorage)
+if (localStorage.getItem('miniwash_reservation')) {
+    const savedData = JSON.parse(localStorage.getItem('miniwash_reservation'));
     
     if (savedData && savedData.status === 'pending_payment') {
         // Mostramos un mensaje de "Procesando su pago..."
         confirmReserveBtn.disabled = true;
-        confirmReserveBtn.innerHTML = '⏳ Confirmando reserva...';
+        confirmReserveBtn.innerHTML = '⏳ Confirming reservation...';
         modal.classList.remove('hidden');
         modal.classList.add('flex');
 
@@ -406,36 +407,76 @@ if (sessionStorage.getItem('miniwash_reservation')) {
         .then(resData => {
             if(resData.ok) {
                 // Éxito: Limpiamos el bolsillo y avisamos
-                sessionStorage.removeItem('miniwash_reservation');
-                alert('¡GRACIAS! Pago verificado. Tu número de pedido es: ' + resData.order_id);
+                localStorage.removeItem('miniwash_reservation');
+                alert('THANK YOU! Payment verified. Your order number is: ' + resData.order_id);
                 window.location.href = '/'; // Limpiamos la URL de parámetros raros
             }
         })
         .catch(err => {
-            console.error('Error al guardar:', err);
-            alert('Hubo un problema al registrar tu pago. Contacta con soporte.');
+            console.error('Saving error:', err);
+            alert('There was a problem registering your payment. Please contact support.');
         });
     }
 }
   });
 <\/script>
 
+<div id="legalModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
+  <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative max-h-[85vh] overflow-y-auto shadow-2xl">
+    <button onclick="document.getElementById('legalModal').classList.add('hidden'); document.getElementById('legalModal').classList.remove('flex')" class="absolute right-4 top-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">
+      ✕
+    </button>
+
+    <div class="text-sm text-gray-600 space-y-4 leading-relaxed text-left p-2">
+      <p class="font-bold text-olive text-lg">Welcome to the MINIWASH® Family</p>
+      <p class="text-xs text-gray-400 uppercase tracking-widest">Please review our updated service terms:</p>
+      
+      <hr class="border-gray-100">
+
+      <p><strong>1. SECURE ASSET-BACKED RESERVATION:</strong> To guarantee your unit at the current price, your payment is processed through a digital asset protocol (USDT/Polygon). This ensures an instant, secure transaction that bypasses traditional banking delays, allowing us to lock in your order with the manufacturer immediately.</p>
+
+      <p><strong>2. 2-YEAR WARRANTY & QUALITY SHIELD:</strong> We stand by our tech. Your MINIWASH® is covered by a <strong>2-Year Comprehensive Warranty</strong>. This covers any manufacturing defects or electronic failures. If the factory doesn't fix it, we replace it or refund you. Period.</p>
+
+      <p><strong>3. 30-DAY RISK-FREE TRIAL:</strong> We are so confident in our urban efficiency that we offer a <strong>30-day money-back guarantee</strong>. If the product doesn't meet your expectations within the first month of delivery, you are eligible for a return and refund. Your satisfaction is our priority.</p>
+
+      <p><strong>4. GLOBAL LOGISTICS & TRACKING:</strong> Transparency is our standard. Once processed, you will receive a unique <strong>Order ID</strong>. Use it to track your shipment in real-time via <strong>17track.net</strong>. If you don't see your ID within 48h, contact us at <span class="text-olive">miniwash@outlook.es</span>.</p>
+
+      <p><strong>5. SUPPORT & REFUND PROTOCOL:</strong> For priority handling, emails to <span class="text-olive">miniwash@outlook.es</span> MUST use these subjects:
+        <ul class="list-disc ml-5 space-y-1 mt-2">
+          <li><strong>REFUND:</strong> (Attach photos/videos of the issue and your Order ID).</li>
+          <li><strong>TRACKING:</strong> (To request status on your shipment).</li>
+          <li><strong>HELP:</strong> (For technical setup or general questions).</li>
+        </ul>
+      </p>
+
+      <p class="pt-4 border-t border-gray-100 font-semibold italic text-center">Efficiency delivered. Enjoy a smarter way to wash!</p>
+      
+      <div class="mt-6">
+        <button onclick="document.getElementById('legalModal').classList.add('hidden'); document.getElementById('legalModal').classList.remove('flex')" class="w-full bg-gray-100 text-gray-800 py-3 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-gray-200 transition-colors">
+          Close Terms
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>`;
 
-// 🔐 CONFIGURACIÓN PRIVADA Y CONTROLADOR PRINCIPAL
+// ---------------------
+// Worker controller
+// ---------------------
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
     try {
-      // 1. API DE BÚSQUEDA DE DIRECCIONES
+      // 1. Address search endpoint
       if (pathname === '/api/address-search') {
         const query = url.searchParams.get('q');
         if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
-        // IMPORTANTE: Se usa env.LOCATION_IQ_KEY (Configúralo en Cloudflare Workers -> Settings -> Variables)
         const response = await fetch(
           `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
         );
@@ -445,12 +486,12 @@ export default {
         });
       }
 
-      // 2. API DE GUARDAR PAGO Y ENVÍO DE EMAIL
+      // 2. Save payment endpoint
       if (pathname === '/api/save-payment') {
         return await handleSavePayment(request, env);
       }
 
-      // 3. CARGA DE LA PÁGINA PRINCIPAL
+      // 3. Serve main page
       return new Response(INDEX, {
         headers: { 'Content-Type': 'text/html; charset=utf-8' }
       });
@@ -464,8 +505,7 @@ export default {
   }
 };
 
-// --- FUNCIONES DE APOYO ---
-
+// --- SUPPORT FUNCTION: handleSavePayment ---
 async function handleSavePayment(request, env) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
@@ -515,7 +555,7 @@ async function handleSavePayment(request, env) {
 
     pagos.push(nuevoPago);
 
-    // C. Actualizar JSONBin
+    // C. Update JSONBin
     const updateBinResponse = await fetch(
       `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
       {
@@ -528,9 +568,9 @@ async function handleSavePayment(request, env) {
       }
     );
 
-    if (!updateBinResponse.ok) throw new Error('Error al guardar en JSONBin');
+    if (!updateBinResponse.ok) throw new Error('Error saving to JSONBin');
 
-    // D. Enviar Email vía EmailJS
+   // D. Send Email via EmailJS
     const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
