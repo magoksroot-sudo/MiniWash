@@ -899,7 +899,8 @@ const INDEX = `<!doctype html>
     });
   </script>
 </body>
-</html>\`;
+</html>\
+`;
 
 // ========================================
 // WORKER LOGIC (OUTSIDE INDEX)
