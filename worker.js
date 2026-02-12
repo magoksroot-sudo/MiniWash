@@ -782,19 +782,19 @@ const INDEX = `<!doctype html>
   document.addEventListener('DOMContentLoaded', () => {
 
     const CONFIG = {
-      locationIqApiKey: '__LOCATION_IQ_KEY__',
-      emailjsService: '__EMAILJS_SERVICE_ID__',
-      emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
+      locationIqApiKey: window.ENV_LOCATION_IQ_KEY,
+      emailjsService: window.ENV_EMAILJS_SERVICE_ID,
+      emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID
     };
 
     const ONRAMPER_URLS = {
-      EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=__WALLET_ADDRESS__&isAmountEditable=false&isAddressEditable=false',
-      USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=__WALLET_ADDRESS__&isAmountEditable=false&isAddressEditable=false'
+      EUR: `https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=${window.ENV_WALLET_ADDRESS}&isAmountEditable=false&isAddressEditable=false`,
+      USD: `https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=${window.ENV_WALLET_ADDRESS}&isAmountEditable=false&isAddressEditable=false`
     };
 
     try {
       if (typeof emailjs !== 'undefined') {
-        emailjs.init("__EMAILJS_PUBLIC_KEY__");
+        emailjs.init(window.ENV_EMAILJS_PUBLIC_KEY);
       }
     } catch (e) {
       console.error("EmailJS Error:", e);
@@ -924,7 +924,7 @@ const INDEX = `<!doctype html>
       // Email
       const emailInput = reserveForm.querySelector('input[name="email"]');
       const emailError = reserveForm.querySelector('.email-error');
-      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(emailInput.value)) {
         emailInput.classList.add('border-error');
         emailError.classList.remove('hidden');
@@ -1080,4 +1080,7 @@ export default {
         if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
         const response = await fetch(
-          \`https://us1.locationiq.com/v1/autocomplete.php?key=\${env.LOCATION_IQ_KEY}&q=\${encodeURIComponent(query)}&format=json
+          `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
+        );
+        const data = await response.json();
+        return new Response(JSON.stringify(data), {
