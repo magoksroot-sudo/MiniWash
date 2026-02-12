@@ -784,7 +784,7 @@ const INDEX = `<!doctype html>
     const CONFIG = {
       locationIqApiKey: window.ENV_LOCATION_IQ_KEY,
       emailjsService: window.ENV_EMAILJS_SERVICE_ID,
-      emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID
+      emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID,
     };
 
     const ONRAMPER_URLS = {
@@ -1084,3 +1084,5 @@ export default {
         );
         const data = await response.json();
         return new Response(JSON.stringify(data), {
+  headers: { 'Content-Type': 'application/json' }
+});
