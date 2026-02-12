@@ -789,7 +789,7 @@ const INDEX = `<!doctype html>
 
     const ONRAMPER_URLS = {
       EUR: `https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=${window.ENV_WALLET_ADDRESS}&isAmountEditable=false&isAddressEditable=false`,
-      USD: `https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=${window.ENV_WALLET_ADDRESS}&isAmountEditable=false&isAddressEditable=false`
+      USD: `https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=${window.ENV_WALLET_ADDRESS}&isAmountEditable=false&isAddressEditable=false`,
     };
 
     try {
