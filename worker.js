@@ -17,7 +17,7 @@ const CONFIG = {
 const PAYMENT_URLS = {
   EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
   USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
-};
+}; // ✅ PUNTO Y COMA AÑADIDO
 
 const PRODUCT_DATA = {
   price: 49,
@@ -629,7 +629,7 @@ const generateHTMLTemplate = (env) => {
   <div id="reserveModal" class="fixed inset-0 z-60 hidden items-center justify-center bg-black/40 backdrop-blur-md p-4" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content rounded-3xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto border-2 border-olive/15 shadow-2xl">
       <button id="closeModal" aria-label="close" class="absolute right-6 top-6 text-gray-500 hover:text-olive text-3xl font-bold transition">✕</button>
-      <h4 class="text-3xl font-extrabold mb-3 text-gray-900">Reserve Your MINIWASH �� €49</h4>
+      <h4 class="text-3xl font-extrabold mb-3 text-gray-900">Reserve Your MINIWASH — €49</h4>
       <p class="text-base text-gray-700 mb-8 font-medium">Fill in your details and we'll send confirmation and secure payment options.</p>
       <form id="reserveForm" class="space-y-5" autocomplete="on" novalidate>
         <div>
@@ -716,210 +716,192 @@ const generateHTMLTemplate = (env) => {
       </form>
     </div>
   </div>
-  <script src="/js/app.js"><\/script>
-</body>
-</html>`;
-};
-
-// ============================================
-// 🎯 BUSINESS LOGIC FUNCTIONS
-// ============================================
-
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function validatePhoneNumber(prefix, phone) {
-  return prefix && phone && phone.trim().length >= 5;
-}
-
-function validateFormData(data) {
-  const errors = {};
-
-  if (!data.name || data.name.trim().length < 2) {
-    errors.name = 'Please enter a valid name';
-  }
-  
-  if (!validateEmail(data.email)) {
-    errors.email = 'Please enter a valid email';
-  }
-  
-  if (!validatePhoneNumber(data.phone_prefix, data.phone)) {
-    errors.phone = 'Please enter a valid phone number';
-  }
-  
-  if (!data.country || data.country.trim().length < 2) {
-    errors.country = 'Please enter a valid country';
-  }
-  
-  if (!data.address) {
-    errors.address = 'Address must be selected from suggestions';
-  }
-  
-  if (!data.currency || !PRODUCT_DATA.currency.includes(data.currency)) {
-    errors.currency = 'Please select a valid currency';
-  }
-
-  return { isValid: Object.keys(errors).length === 0, errors };
-}
-
-function buildOrderData(formData) {
-  return {
-    id: \`ORD-\${Date.now()}\`,
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone_prefix + formData.phone,
-    country: formData.country,
-    currency: formData.currency,
-    amount: PRODUCT_DATA.price,
-    address: formData.address,
-    timestamp: new Date().toISOString(),
-  };
-}
-
-async function sendOrderConfirmationEmail(env, orderData) {
-  try {
-    const emailEndpoint = 'https://api.emailjs.com/api/v1.0/email/send';
-    const payload = {
-      service_id: env.EMAILJS_SERVICE_ID,
-      template_id: env.EMAILJS_TEMPLATE_ID,
-      user_id: env.EMAILJS_PUBLIC_KEY,
-      template_params: {
-        to_email: orderData.email,
-        order_id: orderData.id,
-        customer_name: orderData.name,
-        amount: orderData.currency === 'EUR' ? '€49' : '$49',
-        address: orderData.address,
-        message: \`Your MINIWASH order #\${orderData.id} has been received. Proceeding to payment...\`,
-      },
-    };
-
-    const response = await fetch(emailEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    return response.ok;
-  } catch (error) {
-    console.error('Email send error:', error);
-    return false;
-  }
-}
-
-// ============================================
-// 🛣️ ROUTE HANDLERS
-// ============================================
-
-async function handleRoot(env) {
-  const html = generateHTMLTemplate(env);
-  return new Response(html, {
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  });
-}
-
-async function handleAddressSearch(url, env) {
-  const query = url.searchParams.get('q');
-  
-  if (!query || query.length < 3) {
-    return new Response(JSON.stringify([]), { status: 400 });
-  }
-
-  try {
-    const response = await fetch(
-      \`https://us1.locationiq.com/v1/autocomplete.php?key=\${env.LOCATION_IQ_KEY}&q=\${encodeURIComponent(query)}&format=json&limit=5\`
-    );
-
-    if (!response.ok) {
-      throw new Error('LocationIQ API Error');
-    }
-
-    const data = await response.json();
-    return new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Address search error:', error);
-    return new Response(JSON.stringify({ error: 'Search failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-}
-
-async function handleReservation(request, env) {
-  try {
-    const formData = await request.json();
-    const { isValid, errors } = validateFormData(formData);
-
-    if (!isValid) {
-      return new Response(JSON.stringify({ success: false, errors }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const orderData = buildOrderData(formData);
-    
-    // Send email confirmation (non-blocking)
-    await sendOrderConfirmationEmail(env, orderData);
-
-    // Store order (you could use KV or database)
-    // await env.KV.put(\`order:\${orderData.id}\`, JSON.stringify(orderData));
-
-    return new Response(JSON.stringify({
-      success: true,
-      orderId: orderData.id,
-      paymentUrl: PAYMENT_URLS[formData.currency],
-    }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('Reservation error:', error);
-    return new Response(JSON.stringify({ error: 'Reservation failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-}
-
-// ============================================
-// 📡 MAIN WORKER HANDLER
-// ============================================
-
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const pathname = url.pathname;
-
-    try {
-      // Root - Serve HTML
-      if (pathname === '/' || pathname === '') {
-        return handleRoot(env);
-      }
-
-      // API - Address Search
-      if (pathname === '/api/address-search') {
-        return handleAddressSearch(url, env);
-      }
-
-      // API - Reservation
-      if (pathname === '/api/reserve' && request.method === 'POST') {
-        return handleReservation(request, env);
-      }
-
-      // 404 - Not Found
-      return new Response('Not Found', { status: 404 });
-    } catch (error) {
-      console.error('Worker error:', error);
-      return new Response(
-        JSON.stringify({ error: 'Internal Server Error', details: error.message }),
-        {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' },
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const CONFIG = {
+        locationIqApiKey: window.ENV_LOCATION_IQ_KEY,
+        emailjsService: window.ENV_EMAILJS_SERVICE_ID,
+        emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID
+      };
+      const ONRAMPER_URLS = window.PAYMENT_URLS;
+      try {
+        if (typeof emailjs !== 'undefined') {
+          emailjs.init(window.ENV_EMAILJS_PUBLIC_KEY);
         }
-      );
-    }
-  },
-};
+      } catch (e) {
+        console.error("EmailJS Error:", e);
+      }
+      const modal = document.getElementById('reserveModal');
+      const reserveForm = document.getElementById('reserveForm');
+      const confirmReserveBtn = document.getElementById('confirmReserve');
+      const addressInput = document.getElementById('addressInput');
+      const addressSuggestions = document.getElementById('addressSuggestions');
+      const addressLoader = document.getElementById('addressLoader');
+      const addressError = document.getElementById('addressError');
+      const addressSuccess = document.getElementById('addressSuccess');
+      if (!modal) return;
+      let selectedAddress = null;
+      let addressDebounceTimer = null;
+      function openModal(e) {
+        if (e) e.preventDefault();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+        reserveForm.reset();
+        selectedAddress = null;
+        addressSuggestions.innerHTML = '';
+        addressSuggestions.classList.add('hidden');
+      }
+      document.querySelectorAll('[data-reserva]').forEach(btn => {
+        btn.addEventListener('click', openModal);
+      });
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      document.getElementById('payLater').addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+      });
+      if (addressInput) {
+        addressInput.addEventListener('input', function(e) {
+          const query = e.target.value.trim();
+          clearTimeout(addressDebounceTimer);
+          addressError.classList.add('hidden');
+          addressSuccess.classList.add('hidden');
+          if (query.length < 3) {
+            addressSuggestions.classList.add('hidden');
+            return;
+          }
+          addressLoader.classList.remove('hidden');
+          addressDebounceTimer = setTimeout(async () => {
+            try {
+              const response = await fetch(\`https://us1.locationiq.com/v1/autocomplete.php?key=\${CONFIG.locationIqApiKey}&q=\${encodeURIComponent(query)}&format=json&limit=5\`);
+              if (!response.ok) throw new Error('Error API');
+              const results = await response.json();
+              addressSuggestions.innerHTML = '';
+              addressLoader.classList.add('hidden');
+              if (!results || results.length === 0) {
+                addressSuggestions.innerHTML = '<div class="p-3 text-sm text-gray-600">No results found</div>';
+                addressSuggestions.classList.remove('hidden');
+                return;
+              }
+              results.forEach(result => {
+                const div = document.createElement('div');
+                div.className = 'p-3 border-b border-gray-200 hover:bg-olive/8 cursor-pointer text-sm transition font-medium';
+                div.innerHTML = \`<strong class="text-gray-900">\${result.display_name.split(',')[0]}</strong><br><span class="text-xs text-gray-600">\${result.display_name}</span>\`;
+                div.onclick = () => {
+                  addressInput.value = result.display_name;
+                  selectedAddress = { display_name: result.display_name, lat: result.lat, lon: result.lon };
+                  addressSuggestions.classList.add('hidden');
+                  addressSuccess.classList.remove('hidden');
+                };
+                addressSuggestions.appendChild(div);
+              });
+              addressSuggestions.classList.remove('hidden');
+            } catch (error) {
+              console.error(error);
+              addressLoader.classList.add('hidden');
+            }
+          }, 500);
+        });
+      }
+      function validateForm() {
+        let isValid = true;
+        const nameInput = reserveForm.querySelector('input[name="name"]');
+        const nameError = reserveForm.querySelector('.name-error');
+        if (nameInput.value.trim().length < 2) {
+          nameInput.classList.add('border-error');
+          nameError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          nameInput.classList.remove('border-error');
+          nameError.classList.add('hidden');
+        }
+        const emailInput = reserveForm.querySelector('input[name="email"]');
+        const emailError = reserveForm.querySelector('.email-error');
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+          emailInput.classList.add('border-error');
+          emailError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          emailInput.classList.remove('border-error');
+          emailError.classList.add('hidden');
+        }
+        const phonePrefix = reserveForm.querySelector('select[name="phone_prefix"]');
+        const phoneInput = reserveForm.querySelector('input[name="phone"]');
+        const phoneError = reserveForm.querySelector('.phone-error');
+        if (!phonePrefix.value || phoneInput.value.trim().length < 5) {
+          phonePrefix.classList.add('border-error');
+          phoneInput.classList.add('border-error');
+          phoneError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          phonePrefix.classList.remove('border-error');
+          phoneInput.classList.remove('border-error');
+          phoneError.classList.add('hidden');
+        }
+        const countryInput = reserveForm.querySelector('input[name="country"]');
+        const countryError = reserveForm.querySelector('.country-error');
+        if (countryInput.value.trim().length < 2) {
+          countryInput.classList.add('border-error');
+          countryError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          countryInput.classList.remove('border-error');
+          countryError.classList.add('hidden');
+        }
+        if (!selectedAddress) {
+          addressInput.classList.add('border-error');
+          addressError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          addressInput.classList.remove('border-error');
+          addressError.classList.add('hidden');
+        }
+        const currencyRadios = reserveForm.querySelectorAll('input[name="currency"]');
+        const currencyError = document.getElementById('currencyError');
+        const currencySelected = Array.from(currencyRadios).some(r => r.checked);
+        if (!currencySelected) {
+          currencyError.classList.remove('hidden');
+          isValid = false;
+        } else {
+          currencyError.classList.add('hidden');
+        }
+        return isValid;
+      }
+      if (reserveForm) {
+        reserveForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!validateForm()) {
+            return;
+          }
+          const formData = new FormData(reserveForm);
+          const currency = formData.get('currency');
+          const email = formData.get('email');
+          const clientData = {
+            id: \`ORD-\${Date.now()}\`,
+            name: formData.get('name'),
+            email: email,
+            phone: formData.get('phone_prefix') + formData.get('phone'),
+            country: formData.get('country'),
+            currency: currency,
+            amount: 49,
+            address: selectedAddress.display_name,
+            timestamp: new Date().toISOString()
+          };
+          sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
+          try {
+            await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplate, {
+              to_email: email,
+              order_id: clientData.id,
+              customer_name: clientData.name,
+              amount: currency === 'EUR' ? '€49' : '$49',
+              address: clientData.address,
+              message: \`Your MINIW
