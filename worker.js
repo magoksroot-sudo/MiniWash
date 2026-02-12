@@ -741,7 +741,7 @@ const INDEX = `<!doctype html>
           addressLoader.classList.remove('hidden');
           addressDebounceTimer = setTimeout(async () => {
             try {
-              const response = await fetch(\`https://us1.locationiq.com/v1/autocomplete.php?key=\${CONFIG.locationIqApiKey}&q=\${encodeURIComponent(query)}&format=json&limit=5\`);
+              const response = await fetch('https://us1.locationiq.com/v1/autocomplete.php?key=' + CONFIG.locationIqApiKey + '&q=' + encodeURIComponent(query) + '&format=json&limit=5');
               if (!response.ok) throw new Error('Error API');
               const results = await response.json();
               addressSuggestions.innerHTML = '';
@@ -754,7 +754,7 @@ const INDEX = `<!doctype html>
               results.forEach(result => {
                 const div = document.createElement('div');
                 div.className = 'p-3 border-b border-gray-200 hover:bg-olive/8 cursor-pointer text-sm transition font-medium';
-                div.innerHTML = \`<strong class="text-gray-900">\${result.display_name.split(',')[0]}</strong><br><span class="text-xs text-gray-600">\${result.display_name}</span>\`;
+                div.innerHTML = '<strong class="text-gray-900">' + result.display_name.split(',')[0] + '</strong><br><span class="text-xs text-gray-600">' + result.display_name + '</span>';
                 div.onclick = () => {
                   addressInput.value = result.display_name;
                   selectedAddress = { display_name: result.display_name, lat: result.lat, lon: result.lon };
@@ -846,7 +846,7 @@ const INDEX = `<!doctype html>
           const currency = formData.get('currency');
           const email = formData.get('email');
           const clientData = {
-            id: \`ORD-\${Date.now()}\`,
+            id: 'ORD-' + Date.now(),
             name: formData.get('name'),
             email: email,
             phone: formData.get('phone_prefix') + formData.get('phone'),
@@ -864,7 +864,7 @@ const INDEX = `<!doctype html>
               customer_name: clientData.name,
               amount: currency === 'EUR' ? '€49' : '$49',
               address: clientData.address,
-              message: \`Your MINIWASH order #\${clientData.id} has been received. Proceeding to payment...\`
+              message: 'Your MINIWASH order #' + clientData.id + ' has been received. Proceeding to payment...'
             });
           } catch (err) {
             console.warn('Email send failed:', err);
