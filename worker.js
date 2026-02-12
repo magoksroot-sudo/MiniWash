@@ -782,19 +782,19 @@ const INDEX = `<!doctype html>
   document.addEventListener('DOMContentLoaded', () => {
 
     const CONFIG = {
-      locationIqApiKey: 'pk_5e06b6a83b83a',
-      emailjsService: 'service_oplyt2g',
-      emailjsTemplate: 'template_qyj8ure'
+      locationIqApiKey: '__LOCATION_IQ_KEY__',
+      emailjsService: '__EMAILJS_SERVICE_ID__',
+      emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
     };
 
     const ONRAMPER_URLS = {
-      EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
-      USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false'
+      EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=__WALLET_ADDRESS__&isAmountEditable=false&isAddressEditable=false',
+      USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=__WALLET_ADDRESS__&isAmountEditable=false&isAddressEditable=false'
     };
 
     try {
       if (typeof emailjs !== 'undefined') {
-        emailjs.init("reJMUB5suajjDVUYf");
+        emailjs.init("__EMAILJS_PUBLIC_KEY__");
       }
     } catch (e) {
       console.error("EmailJS Error:", e);
@@ -1063,7 +1063,7 @@ const INDEX = `<!doctype html>
 <\/script>
 
 </body>
-</html>`;
+</html>\`;
 
 // ---------------------
 // Worker controller
@@ -1080,128 +1080,4 @@ export default {
         if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
         const response = await fetch(
-          `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
-        );
-        const data = await response.json();
-        return new Response(JSON.stringify(data), {
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-
-      // 2. Save payment endpoint
-      if (pathname === '/api/save-payment') {
-        return await handleSavePayment(request, env);
-      }
-
-      // 3. Serve main page
-      return new Response(INDEX, {
-        headers: { 'Content-Type': 'text/html; charset=utf-8' }
-      });
-
-    } catch (error) {
-      return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-  }
-};
-
-// --- SUPPORT FUNCTION: handleSavePayment ---
-async function handleSavePayment(request, env) {
-  if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-
-  try {
-    const paymentData = await request.json();
-
-    // A. Obtener datos actuales del Bin (JSONBin)
-    const getBinResponse = await fetch(
-      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
-      {
-        method: 'GET',
-        headers: { 'X-Master-Key': env.JSON_BIN_KEY }
-      }
-    );
-
-    let pagos = [];
-    if (getBinResponse.ok) {
-      const binData = await getBinResponse.json();
-      pagos = binData.record.pagos || [];
-    }
-
-    // B. Añadir el nuevo registro estructurado
-    const nuevoPago = {
-      id: paymentData.id || `ORD-${Date.now()}`,
-      cliente: {
-        nombre: paymentData.name,
-        email: paymentData.email,
-        telefono: paymentData.phone,
-        pais: paymentData.country
-      },
-      ubicacion: {
-        direccion_completa: paymentData.address
-      },
-      pago: {
-        monto: paymentData.amount,
-        moneda: paymentData.currency,
-        estado: 'payment_completed',
-        metodo: 'Onramper_USDT_Polygon'
-      },
-      metadata: {
-        producto: 'MINIWASH',
-        fecha_creacion: new Date().toISOString()
-      }
-    };
-
-    pagos.push(nuevoPago);
-
-    // C. Update JSONBin
-    const updateBinResponse = await fetch(
-      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': env.JSON_BIN_KEY
-        },
-        body: JSON.stringify({ pagos: pagos })
-      }
-    );
-
-    if (!updateBinResponse.ok) throw new Error('Error saving to JSONBin');
-
-   // D. Send Email via EmailJS
-    const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        service_id: env.EMAILJS_SERVICE_ID,
-        template_id: env.EMAILJS_TEMPLATE_ID,
-        user_id: env.EMAILJS_PUBLIC_KEY,
-        template_params: {
-          to_email: paymentData.email,
-          to_name: paymentData.name,
-          order_id: nuevoPago.id,
-          amount: paymentData.currency === 'EUR' ? '49€' : '$49',
-          address: paymentData.address
-        }
-      })
-    });
-
-    return new Response(JSON.stringify({ 
-      ok: true, 
-      message: 'Proceso completado con éxito',
-      order_id: nuevoPago.id 
-    }), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-  } catch (err) {
-    return new Response(JSON.stringify({ ok: false, error: err.message }), { 
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-}
+          \`https://us1.locationiq.com/v1/autocomplete.php?key=\${env.LOCATION_IQ_KEY}&q=\${encodeURIComponent(query)}&format=json
