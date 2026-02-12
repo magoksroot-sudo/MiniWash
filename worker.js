@@ -1,45 +1,9 @@
 // ========================================
 // MINIWASH® LANDING PAGE - CLOUDFLARE WORKER
-// REFACTORED: Static HTML + Logic Separated
 // ========================================
 
-// ============================================
-// 🔧 CONFIGURATION & CONSTANTS (LOGIC)
-// ============================================
-
-const CONFIG = {
-  LOCATION_IQ_API_KEY: (env) => env.LOCATION_IQ_KEY,
-  EMAILJS_PUBLIC_KEY: (env) => env.EMAILJS_PUBLIC_KEY,
-  EMAILJS_SERVICE_ID: (env) => env.EMAILJS_SERVICE_ID,
-  EMAILJS_TEMPLATE_ID: (env) => env.EMAILJS_TEMPLATE_ID,
-};
-
-const PAYMENT_URLS = {
-  EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
-  USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
-}; // ✅ PUNTO Y COMA AÑADIDO
-
-const PRODUCT_DATA = {
-  price: 49,
-  currency: ['EUR', 'USD'],
-  stock: 25,
-  rating: 4.6,
-  reviews: 847,
-  completedWashes: 15000,
-  deliveryTime: '72h',
-};
-
-// ============================================
-// 📋 HTML TEMPLATE (STATIC CONTENT ONLY)
-// ============================================
-
-const generateHTMLTemplate = (env) => {
-  const locationIqKey = CONFIG.LOCATION_IQ_KEY(env);
-  const emailjsPublicKey = CONFIG.EMAILJS_PUBLIC_KEY(env);
-  const emailjsServiceId = CONFIG.EMAILJS_SERVICE_ID(env);
-  const emailjsTemplateId = CONFIG.EMAILJS_TEMPLATE_ID(env);
-
-  return `<!doctype html>
+// 🔐 HTML CONTENT (COMPLETE & SELF-CONTAINED)
+const INDEX = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -339,22 +303,15 @@ const generateHTMLTemplate = (env) => {
     "image":["https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200"],
     "description":"Portable foldable mini washer with UV disinfection. 50% less water consumption, perfect for delicate clothes, babies and travelers.",
     "brand":{"@type":"Brand","name":"MINIWASH"},
-    "aggregateRating":{"@type":"AggregateRating","ratingValue":"${PRODUCT_DATA.rating}","reviewCount":"${PRODUCT_DATA.reviews}"},
+    "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"847"},
     "offers":{
       "@type":"Offer",
       "url":"#store",
       "priceCurrency":"EUR",
-      "price":"${PRODUCT_DATA.price}.00",
+      "price":"49.00",
       "availability":"https://schema.org/InStock"
     }
   }
-  <\/script>
-  <script>
-    window.ENV_LOCATION_IQ_KEY = '${locationIqKey}';
-    window.ENV_EMAILJS_PUBLIC_KEY = '${emailjsPublicKey}';
-    window.ENV_EMAILJS_SERVICE_ID = '${emailjsServiceId}';
-    window.ENV_EMAILJS_TEMPLATE_ID = '${emailjsTemplateId}';
-    window.PAYMENT_URLS = ${JSON.stringify(PAYMENT_URLS)};
   <\/script>
 </head>
 <body>
@@ -401,7 +358,7 @@ const generateHTMLTemplate = (env) => {
           <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center text-xs text-gray-600 font-medium">
             <div class="flex items-center gap-2">🔒 <strong>Secure Payment</strong> • Card / Bank Transfer</div>
             <div class="hidden sm:block text-gray-400">|</div>
-            <div class="flex items-center gap-2">⭐ <strong>${PRODUCT_DATA.rating}/5</strong> (${PRODUCT_DATA.reviews} verified reviews)</div>
+            <div class="flex items-center gap-2">⭐ <strong>4.6/5</strong> (847 verified reviews)</div>
           </div>
         </div>
         <div class="relative group">
@@ -428,19 +385,19 @@ const generateHTMLTemplate = (env) => {
       <div class="max-w-[var(--content-width)] mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-6 social-proof">
           <div class="metric-card text-center">
-            <div class="text-4xl font-black text-olive">${PRODUCT_DATA.reviews}+</div>
+            <div class="text-4xl font-black text-olive">847+</div>
             <p class="text-sm text-gray-700 mt-2 font-medium">Verified Reviews</p>
           </div>
           <div class="metric-card text-center">
-            <div class="text-4xl font-black text-olive">${PRODUCT_DATA.rating}⭐</div>
+            <div class="text-4xl font-black text-olive">4.6⭐</div>
             <p class="text-sm text-gray-700 mt-2 font-medium">Average Rating</p>
           </div>
           <div class="metric-card text-center">
-            <div class="text-4xl font-black text-olive">${PRODUCT_DATA.completedWashes / 1000}K+</div>
+            <div class="text-4xl font-black text-olive">15K+</div>
             <p class="text-sm text-gray-700 mt-2 font-medium">Completed Washes</p>
           </div>
           <div class="metric-card text-center">
-            <div class="text-4xl font-black text-olive">${PRODUCT_DATA.deliveryTime}</div>
+            <div class="text-4xl font-black text-olive">72h</div>
             <p class="text-sm text-gray-700 mt-2 font-medium">Guaranteed Delivery</p>
           </div>
         </div>
@@ -492,12 +449,12 @@ const generateHTMLTemplate = (env) => {
         </div>
         <aside id="store" class="price-card p-10 rounded-3xl text-center sticky top-32">
           <div aria-hidden class="text-xs uppercase tracking-widest text-olive/70 font-bold">Limited Time Offer</div>
-          <div class="text-7xl font-black text-olive my-6">${PRODUCT_DATA.price}<span class="text-3xl ml-1">€</span></div>
+          <div class="text-7xl font-black text-olive my-6">49<span class="text-3xl ml-1">€</span></div>
           <div class="text-xs uppercase font-bold tracking-[0.3em] text-gray-600 mb-10">One-time investment. Lifetime savings.</div>
           <button class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl" id="storeReserveBtn">RESERVE NOW</button>
           <p class="mt-6 text-sm text-gray-700 leading-relaxed font-medium">Careful delivery, tracking included • Shop with confidence • Secure payment</p>
           <div class="mt-8 text-sm text-gray-800 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-olive/10">
-            <div class="font-bold">📦 Available Stock: <span class="text-olive" id="stockCount">${PRODUCT_DATA.stock}</span></div>
+            <div class="font-bold">📦 Available Stock: <span class="text-olive" id="stockCount">25</span></div>
             <div class="mt-2 text-xs text-orange-600 font-semibold" id="scarcityText" aria-live="polite">⚡ Only a few units left</div>
           </div>
           <div class="mt-8 space-y-3 text-xs text-gray-700">
@@ -723,7 +680,10 @@ const generateHTMLTemplate = (env) => {
         emailjsService: window.ENV_EMAILJS_SERVICE_ID,
         emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID
       };
-      const ONRAMPER_URLS = window.PAYMENT_URLS;
+      const ONRAMPER_URLS = {
+  EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false', 
+  USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false'   
+};
       try {
         if (typeof emailjs !== 'undefined') {
           emailjs.init(window.ENV_EMAILJS_PUBLIC_KEY);
@@ -904,4 +864,82 @@ const generateHTMLTemplate = (env) => {
               customer_name: clientData.name,
               amount: currency === 'EUR' ? '€49' : '$49',
               address: clientData.address,
-              message: \`Your MINIW
+              message: \`Your MINIWASH order #\${clientData.id} has been received. Proceeding to payment...\`
+            });
+          } catch (err) {
+            console.warn('Email send failed:', err);
+          }
+          confirmReserveBtn.innerHTML = '⏳ Redirecting...';
+          setTimeout(() => {
+            window.location.href = ONRAMPER_URLS[currency];
+          }, 1000);
+        });
+      }
+      document.querySelectorAll('.testimonial-dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.index);
+          const testimonials = document.querySelectorAll('.testimonial');
+          const dots = document.querySelectorAll('.testimonial-dot');
+          testimonials.forEach((t, i) => {
+            if(i === index) t.classList.remove('hidden');
+            else t.classList.add('hidden');
+          });
+          dots.forEach((d, i) => {
+            if(i === index) { 
+              d.classList.remove('bg-gray-300'); 
+              d.classList.add('bg-olive'); 
+            }
+            else { 
+              d.classList.add('bg-gray-300'); 
+              d.classList.remove('bg-olive'); 
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>\`;
+
+// ========================================
+// WORKER LOGIC (OUTSIDE INDEX)
+// ========================================
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+
+    try {
+      // Serve main HTML page
+      if (pathname === '/' || pathname === '') {
+        return new Response(INDEX, {
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
+      }
+
+      // Address search API endpoint
+      if (pathname === '/api/address-search') {
+        const query = url.searchParams.get('q');
+        if (!query) return new Response(JSON.stringify([]), { status: 400 });
+
+        const response = await fetch(
+          `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
+        );
+        const data = await response.json();
+        return new Response(JSON.stringify(data), {
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      // 404 for unknown routes
+      return new Response('Not Found', { status: 404 });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+  }
+};
