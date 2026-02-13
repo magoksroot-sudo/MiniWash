@@ -335,7 +335,7 @@ const INDEX = `<!doctype html>
       "availability":"https://schema.org/InStock"
     }
   }
-  <\/script>
+  </script>
 
 </head>
 <body>
