@@ -502,7 +502,13 @@ const INDEX = `<!doctype html>
           <div class="text-7xl font-black text-olive my-6">49<span class="text-3xl ml-1">€</span></div>
           <div class="text-xs uppercase font-bold tracking-[0.3em] text-gray-600 mb-10">One-time investment. Lifetime savings.</div>
 
-          <button class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl" id="storeReserveBtn">RESERVE NOW</button>
+          <button 
+    class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl"
+    id="storeReserveBtn"
+    onclick="document.getElementById('reserveModal').classList.remove('hidden'); document.getElementById('reserveModal').setAttribute('aria-hidden','false')"
+>
+    RESERVE NOW
+</button>
           <p class="mt-6 text-sm text-gray-700 leading-relaxed font-medium">Careful delivery, tracking included • Shop with confidence • Secure payment</p>
 
           <div class="mt-8 text-sm text-gray-800 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-olive/10">
@@ -782,10 +788,11 @@ const INDEX = `<!doctype html>
   document.addEventListener('DOMContentLoaded', () => {
 
     const CONFIG = {
-      locationIqApiKey: 'pk_5e06b6a83b83a',
-      emailjsService: 'service_oplyt2g',
-      emailjsTemplate: 'template_qyj8ure'
-    };
+  locationIqApiKey: '__LOCATION_IQ_KEY__',
+  emailjsService: '__EMAILJS_SERVICE_ID__',
+  emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
+};
+
 
     const ONRAMPER_URLS = {
       EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
@@ -794,7 +801,7 @@ const INDEX = `<!doctype html>
 
     try {
       if (typeof emailjs !== 'undefined') {
-        emailjs.init("reJMUB5suajjDVUYf");
+        emailjs.init("__EMAILJS_PUBLIC_KEY__");
       }
     } catch (e) {
       console.error("EmailJS Error:", e);
@@ -1068,6 +1075,22 @@ const INDEX = `<!doctype html>
 // ---------------------
 // Worker controller
 // ---------------------
+export default {
+  async fetch(request, env) {
+
+    const html = INDEX
+      .replace(/__LOCATION_IQ_KEY__/g, env.LOCATION_IQ_KEY)
+      .replace(/__EMAILJS_SERVICE_ID__/g, env.EMAILJS_SERVICE_ID)
+      .replace(/__EMAILJS_TEMPLATE_ID__/g, env.EMAILJS_TEMPLATE_ID)
+      .replace(/__EMAILJS_PUBLIC_KEY__/g, env.EMAILJS_PUBLIC_KEY);
+
+    return new Response(html, {
+      headers: { "Content-Type": "text/html;charset=UTF-8" }
+    });
+  }
+};
+
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
