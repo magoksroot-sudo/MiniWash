@@ -1075,21 +1075,6 @@ const INDEX = `<!doctype html>
 // ---------------------
 // Worker controller
 // ---------------------
-export default {
-  async fetch(request, env) {
-
-    const html = INDEX
-      .replace(/__LOCATION_IQ_KEY__/g, env.LOCATION_IQ_KEY)
-      .replace(/__EMAILJS_SERVICE_ID__/g, env.EMAILJS_SERVICE_ID)
-      .replace(/__EMAILJS_TEMPLATE_ID__/g, env.EMAILJS_TEMPLATE_ID)
-      .replace(/__EMAILJS_PUBLIC_KEY__/g, env.EMAILJS_PUBLIC_KEY);
-
-    return new Response(html, {
-      headers: { "Content-Type": "text/html;charset=UTF-8" }
-    });
-  }
-};
-
 
 export default {
   async fetch(request, env) {
