@@ -1,8 +1,4 @@
-// ========================================
-// MINIWASH® LANDING PAGE - CLOUDFLARE WORKER
-// ========================================
-
-// 🔐 HTML CONTENT (COMPLETE & SELF-CONTAINED)
+// 🔐 YOUR COMPLETE HTML HERE
 const INDEX = `<!doctype html>
 <html lang="en">
 <head>
@@ -20,6 +16,7 @@ const INDEX = `<!doctype html>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"><\/script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"><\/script>
+
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200" />
   <style>
     :root{
@@ -39,9 +36,12 @@ const INDEX = `<!doctype html>
     .rounded-hero{border-radius:2rem}
     .focus-ring:focus{outline:none; box-shadow:var(--focus); border-radius:.5rem}
     .card-radius{border-radius:1.5rem}
+    
+    /* ✨ ERROR VALIDATION */
     .border-error { border-color: #dc2626 !important; }
     .text-error { color: #dc2626; }
     input.border-error:focus { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15); }
+    
     @keyframes slideInUp {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
@@ -54,6 +54,7 @@ const INDEX = `<!doctype html>
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
+    
     .pulse-cta{
       transition:transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .25s ease;
       position: relative;
@@ -83,6 +84,7 @@ const INDEX = `<!doctype html>
     .pulse-cta:active{
       transform:translateY(-1px);
     }
+    
     h1 {
       background: linear-gradient(135deg, #0f172a 0%, #0f172a 65%, var(--olive) 100%);
       -webkit-background-clip: text;
@@ -91,6 +93,7 @@ const INDEX = `<!doctype html>
       letter-spacing: -0.02em;
       animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    
     .text-olive-underline {
       position: relative;
       display: inline-block;
@@ -106,8 +109,10 @@ const INDEX = `<!doctype html>
       border-radius: 2px;
       box-shadow: 0 4px 12px rgba(85,107,47,0.2);
     }
+    
     .skip{position:absolute;left:1rem;top:1rem;background:#111;color:#fff;padding:.5rem .75rem;border-radius:.5rem;z-index:60}
     .skip:not(:focus){clip:rect(0 0 0 0); clip-path: inset(50%); height:1px; overflow:hidden; position:absolute; white-space:nowrap; width:1px}
+    
     .badge-uv{
       background:linear-gradient(180deg,rgba(86,124,36,0.1),rgba(86,124,36,0.03)); 
       border:1.5px solid rgba(86,124,36,0.18); 
@@ -123,6 +128,7 @@ const INDEX = `<!doctype html>
       border-color: rgba(86,124,36,0.32);
       transform: translateY(-2px);
     }
+    
     .feature-card {
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       border: 1.5px solid rgba(85,107,47,0.08);
@@ -151,6 +157,7 @@ const INDEX = `<!doctype html>
       border-color: rgba(85,107,47,0.25);
       box-shadow: 0 24px 48px rgba(85,107,47,0.15);
     }
+    
     .testimonial{
       min-height:140px;
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -174,6 +181,7 @@ const INDEX = `<!doctype html>
       box-shadow: 0 12px 32px rgba(85,107,47,0.15);
       transform: translateX(4px);
     }
+    
     .price-card {
       background: linear-gradient(135deg, #F5F7F3 0%, #EEF1EB 100%);
       border: 2px solid rgba(85,107,47,0.15);
@@ -193,6 +201,7 @@ const INDEX = `<!doctype html>
       border-radius: 50%;
       filter: blur(40px);
     }
+    
     .case-card {
       transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
@@ -220,6 +229,7 @@ const INDEX = `<!doctype html>
       box-shadow: 0 28px 56px rgba(85,107,47,0.18);
       border-color: rgba(85,107,47,0.2);
     }
+    
     .circular-image {
       position: relative;
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -240,22 +250,28 @@ const INDEX = `<!doctype html>
     .case-card:hover .circular-image::before {
       opacity: 1;
     }
+    
     .modal-content {
       animation: slideInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       background: linear-gradient(135deg, #F7FAF7 0%, #EFF3EE 100%);
     }
+    
     input:focus, textarea:focus {
       border-color: var(--olive);
       box-shadow: 0 0 0 4px rgba(85,107,47,0.15), inset 0 1px 2px rgba(0,0,0,0.05);
       transition: all 0.25s ease;
     }
+    
     input, textarea {
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
+    
     .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(85,107,47,0.2);border-top-color:var(--olive);border-radius:50%;animation:spin 0.6s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
+    
     #hero-slider::-webkit-scrollbar { display: none; }
     #hero-slider { -ms-overflow-style: none; scrollbar-width: none; }
+    
     details summary {
       cursor: pointer;
       padding: 6px 0;
@@ -269,6 +285,7 @@ const INDEX = `<!doctype html>
       color: var(--olive);
       font-weight: 700;
     }
+    
     .btn-secondary {
       transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       border: 2px solid rgba(85,107,47,0.3);
@@ -279,22 +296,28 @@ const INDEX = `<!doctype html>
       box-shadow: 0 8px 24px rgba(85,107,47,0.1);
       transform: translateY(-2px);
     }
+    
     .social-proof {
       animation: fadeIn 0.8s ease 0.4s both;
     }
+    
     .metric-card {
       transition: all 0.3s ease;
     }
+    
     .metric-card:hover {
       transform: translateY(-4px);
     }
+    
     @media (min-width:1024px){ .hero-img{height:520px} }
     @media (max-width:640px){ 
       .desktop-only{display:none} 
       .mobile-only{display:block}
       h1 { font-size: 2.25rem !important; }
     }
+
   </style>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -313,9 +336,13 @@ const INDEX = `<!doctype html>
     }
   }
   <\/script>
+
 </head>
 <body>
+
   <a class="skip" href="#main">Skip to content</a>
+
+  <!-- NAV -->
   <nav class="fixed top-4 inset-x-4 z-50">
     <div class="max-w-[var(--content-width)] mx-auto glass-premium p-3 rounded-full flex items-center justify-between gap-4 backdrop-blur-xl">
       <div class="flex items-center gap-4">
@@ -323,14 +350,18 @@ const INDEX = `<!doctype html>
           Miniwash<span class="text-olive">.</span>
         </a>
       </div>
+
       <div class="hidden md:flex items-center gap-3">
         <a data-reserva class="ml-3 bg-olive text-white px-4 py-2 rounded-full text-sm font-bold uppercase pulse-cta shadow-md hover:shadow-lg" id="nav-buy">Reserve</a>
       </div>
+
       <div class="md:hidden flex items-center gap-2">
         <a data-reserva class="bg-olive text-white px-3 py-2 rounded-full text-xs font-bold uppercase pulse-cta">Reserve</a>
       </div>
     </div>
   </nav>
+
+  <!-- HERO -->
   <main id="main" class="pt-28">
     <header class="max-w-[var(--content-width)] mx-auto px-6">
       <section class="grid lg:grid-cols-2 gap-12 items-center py-16">
@@ -341,10 +372,14 @@ const INDEX = `<!doctype html>
           <p class="mt-6 text-gray-600 text-base md:text-lg max-w-xl leading-relaxed font-medium">
             MINIWASH®: portable foldable mini washer with UV disinfection. Uses up to <strong class="text-gray-800">-50% water</strong>, protects delicate fabrics and travels with you. Urban design engineered for professional results.
           </p>
+
           <div class="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
             <a id="cta-primary" data-reserva class="bg-olive text-white px-8 py-4 rounded-full font-bold text-base uppercase pulse-cta focus-ring shadow-lg">RESERVE €49</a>
-            <a href="https://www.youtube.com/watch?v=lnlRbIqY6yI" target="_blank" class="btn-secondary border-2 border-olive/30 px-6 py-4 rounded-full text-base font-semibold focus-ring">▶ EXTERNAL REVIEW</a>
+            <a href="https://www.youtube.com/watch?v=lnlRbIqY6yI" target="_blank" class="btn-secondary border-2 border-olive/30 px-6 py-4 rounded-full text-base font-semibold focus-ring">
+  ▶ EXTERNAL REVIEW
+</a>
           </div>
+
           <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-gray-600">
             <div class="badge-uv">
               <div class="text-[11px] uppercase tracking-wider font-bold text-olive">Conscious Consumption</div>
@@ -355,25 +390,33 @@ const INDEX = `<!doctype html>
               <span>Careful delivery • Tracking included</span>
             </div>
           </div>
+
           <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center text-xs text-gray-600 font-medium">
             <div class="flex items-center gap-2">🔒 <strong>Secure Payment</strong> • Card / Bank Transfer</div>
             <div class="hidden sm:block text-gray-400">|</div>
             <div class="flex items-center gap-2">⭐ <strong>4.6/5</strong> (847 verified reviews)</div>
           </div>
         </div>
+
+        <!-- HERO IMAGE -->
         <div class="relative group">
           <div id="hero-slider" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-hero shadow-2xl" style="scrollbar-width: none; -ms-overflow-style: none;">
+            
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
               <img src="https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover" alt="Miniwash 1">
             </div>
+
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
               <img src="https://tu-url-aqui.com/foto2.jpg" class="w-full h-full object-cover" alt="Miniwash 2">
             </div>
+
           </div>
+
           <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-            <div class="w-2.5 h-2.5 rounded-full bg-white shadow-lg transition-all duration-300 hover:scale-125 cursor-pointer"></div>
-            <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg transition-all duration-300 hover:scale-125 hover:bg-white/80 cursor-pointer"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white shadow-lg transition-all duration-300 hover:scale-125 cursor-pointer"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg transition-all duration-300 hover:scale-125 hover:bg-white/80 cursor-pointer"></div>
           </div>
+
           <div class="absolute -top-8 -left-6 hidden md:block bg-white p-5 rounded-2xl shadow-2xl z-30 border border-olive/15 backdrop-blur-sm">
             <p class="text-[10px] font-bold text-olive uppercase tracking-widest mb-2 italic">Professional Hygiene</p>
             <p class="text-2xl font-black text-olive">UV + Fast Cycles</p>
@@ -381,6 +424,8 @@ const INDEX = `<!doctype html>
         </div>
       </section>
     </header>
+
+    <!-- SOCIAL PROOF SECTION -->
     <section class="py-12 bg-olive/5">
       <div class="max-w-[var(--content-width)] mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-6 social-proof">
@@ -403,11 +448,14 @@ const INDEX = `<!doctype html>
         </div>
       </div>
     </section>
+
+    <!-- FEATURES & PRICE -->
     <section id="features" class="py-16 bg-white/80">
       <div class="max-w-[var(--content-width)] mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
         <div class="space-y-8">
           <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">Designed for <span class="italic font-light text-olive">mobile lifestyle</span></h2>
           <p class="text-gray-700 text-lg leading-relaxed font-medium">It's not just portability; it's freedom. Ideal for professionals, travelers, families with babies, and anyone who demands hygiene in small garments.</p>
+
           <ul class="grid sm:grid-cols-2 gap-5 mt-8">
             <li class="feature-card p-5 card-radius glass-premium">
               <div class="flex items-start gap-4">
@@ -447,16 +495,22 @@ const INDEX = `<!doctype html>
             </li>
           </ul>
         </div>
+
+        <!-- PRICE CARD -->
         <aside id="store" class="price-card p-10 rounded-3xl text-center sticky top-32">
           <div aria-hidden class="text-xs uppercase tracking-widest text-olive/70 font-bold">Limited Time Offer</div>
           <div class="text-7xl font-black text-olive my-6">49<span class="text-3xl ml-1">€</span></div>
           <div class="text-xs uppercase font-bold tracking-[0.3em] text-gray-600 mb-10">One-time investment. Lifetime savings.</div>
+
           <button class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl" id="storeReserveBtn">RESERVE NOW</button>
           <p class="mt-6 text-sm text-gray-700 leading-relaxed font-medium">Careful delivery, tracking included • Shop with confidence • Secure payment</p>
+
           <div class="mt-8 text-sm text-gray-800 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-olive/10">
             <div class="font-bold">📦 Available Stock: <span class="text-olive" id="stockCount">25</span></div>
             <div class="mt-2 text-xs text-orange-600 font-semibold" id="scarcityText" aria-live="polite">⚡ Only a few units left</div>
           </div>
+
+          <!-- GUARANTEE -->
           <div class="mt-8 space-y-3 text-xs text-gray-700">
             <div class="flex items-center gap-2 justify-center">
               <span class="text-lg">✓</span>
@@ -471,6 +525,7 @@ const INDEX = `<!doctype html>
               <strong>24/7 support included</strong>
             </div>
           </div>
+
           <div class="mt-8 text-xs text-gray-700">
             <strong>Payment Methods:</strong>
             <div class="flex items-center justify-center gap-4 mt-4">
@@ -482,9 +537,13 @@ const INDEX = `<!doctype html>
         </aside>
       </div>
     </section>
+
+    <!-- USE CASES -->
     <section id="usos" class="py-16 max-w-[var(--content-width)] mx-auto px-6">
       <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center text-gray-900">Perfect for every lifestyle</h2>
+      
       <div class="grid md:grid-cols-3 gap-6">
+        
         <article class="case-card p-8 rounded-2xl bg-white text-center shadow-lg">
           <div class="circular-image w-36 h-36 mx-auto mb-6 overflow-hidden rounded-full border-3 border-olive/12">
             <img src="https://i.postimg.cc/zXDP38F6/Save_Clip_App_526697450_1305439328254470_4186378348620069982_n.jpg" alt="Urban" class="w-full h-full object-cover scale-110" />
@@ -493,6 +552,7 @@ const INDEX = `<!doctype html>
           <p class="text-sm text-gray-700 mt-3 leading-relaxed">Perfect for apartments and students needing quick washes without taking up space.</p>
           <div class="mt-4 text-xs font-semibold text-olive">40-50% of market</div>
         </article>
+        
         <article class="case-card p-8 rounded-2xl bg-white text-center shadow-lg">
           <div class="circular-image w-36 h-36 mx-auto mb-6 overflow-hidden rounded-full border-3 border-olive/12">
             <img src="https://i.postimg.cc/Kvcs4xDV/tips_compra.jpg" alt="Adventure" class="w-full h-full object-cover scale-110" />
@@ -501,6 +561,7 @@ const INDEX = `<!doctype html>
           <p class="text-sm text-gray-700 mt-3 leading-relaxed">Perfect for RVs, camping and nomadic lifestyle.</p>
           <div class="mt-4 text-xs font-semibold text-olive">10-15% of market</div>
         </article>
+        
         <article class="case-card p-8 rounded-2xl bg-white text-center shadow-lg">
           <div class="circular-image w-36 h-36 mx-auto mb-6 overflow-hidden rounded-full border-3 border-olive/12">
             <img src="https://i.postimg.cc/xTjFqnPr/portrait_young_family.jpg" alt="Baby" class="w-full h-full object-cover scale-110" />
@@ -509,7 +570,10 @@ const INDEX = `<!doctype html>
           <p class="text-sm text-gray-700 mt-3 leading-relaxed">Quick separate washes for baby clothes without contaminating general laundry.</p>
           <div class="mt-4 text-xs font-semibold text-olive">30-40% of market</div>
         </article>
+        
       </div>
+
+      <!-- TESTIMONIALS -->
       <section id="testimonios" class="py-16 bg-white/80 mt-16 rounded-3xl">
         <div class="max-w-[var(--content-width)] mx-auto px-6">
           <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-gray-900">What our customers say</h3>
@@ -531,6 +595,7 @@ const INDEX = `<!doctype html>
                 <p class="text-olive font-bold mt-4">— Laura, Barcelona</p>
               </blockquote>
             </div>
+
             <div class="flex gap-3 mt-8 justify-center">
               <button class="testimonial-dot w-3.5 h-3.5 rounded-full bg-olive transition-all hover:scale-125" data-index="0" aria-label="testimony 1"></button>
               <button class="testimonial-dot w-3.5 h-3.5 rounded-full bg-gray-300 transition-all hover:scale-125 hover:bg-gray-400" data-index="1" aria-label="testimony 2"></button>
@@ -539,6 +604,8 @@ const INDEX = `<!doctype html>
           </div>
         </div>
       </section>
+
+      <!-- FAQ -->
       <section id="faq" class="py-16 max-w-[var(--content-width)] mx-auto px-6">
         <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-gray-900">Frequently asked questions</h3>
         <div class="space-y-4 max-w-3xl">
@@ -572,6 +639,8 @@ const INDEX = `<!doctype html>
           </details>
         </div>
       </section>
+
+      <!-- FOOTER -->
       <footer class="py-10 border-t-2 border-gray-200 mt-16">
         <div class="max-w-[var(--content-width)] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="text-sm text-gray-700 font-medium">© <strong>MINIWASH®</strong> — All rights reserved</div>
@@ -583,22 +652,32 @@ const INDEX = `<!doctype html>
       </footer>
     </section>
   </main>
-  <div id="reserveModal" class="fixed inset-0 z-60 hidden items-center justify-center bg-black/40 backdrop-blur-md p-4" role="dialog" aria-modal="true" aria-hidden="true">
+
+  <!-- RESERVATION MODAL -->
+  <div id="reserveModal"
+     class="fixed inset-0 z-60 hidden items-center justify-center bg-black/40 backdrop-blur-md p-4"
+     role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content rounded-3xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto border-2 border-olive/15 shadow-2xl">
       <button id="closeModal" aria-label="close" class="absolute right-6 top-6 text-gray-500 hover:text-olive text-3xl font-bold transition">✕</button>
       <h4 class="text-3xl font-extrabold mb-3 text-gray-900">Reserve Your MINIWASH — €49</h4>
       <p class="text-base text-gray-700 mb-8 font-medium">Fill in your details and we'll send confirmation and secure payment options.</p>
+
       <form id="reserveForm" class="space-y-5" autocomplete="on" novalidate>
+        <!-- NAME -->
         <div>
           <label class="text-sm font-bold text-gray-900">Full Name *</label>
           <input name="name" required class="w-full mt-2 p-3.5 border-2 border-gray-300 rounded-lg focus-ring font-medium" placeholder="E.g. John Smith" />
           <div class="text-red-600 text-xs mt-1 hidden name-error font-bold">⚠ Please enter a valid name</div>
         </div>
+
+        <!-- EMAIL -->
         <div>
           <label class="text-sm font-bold text-gray-900">Email Address *</label>
           <input name="email" type="email" required class="w-full mt-2 p-3.5 border-2 border-gray-300 rounded-lg focus-ring font-medium" placeholder="you@email.com" />
           <div class="text-red-600 text-xs mt-1 hidden email-error font-bold">⚠ Please enter a valid email</div>
         </div>
+
+        <!-- PHONE WITH INTERNATIONAL PREFIX -->
         <div>
           <label class="text-sm font-bold text-gray-900">Phone (International Prefix)*</label>
           <div class="flex gap-2 mt-2">
@@ -617,21 +696,36 @@ const INDEX = `<!doctype html>
           </div>
           <div class="text-red-600 text-xs mt-1 hidden phone-error font-bold">⚠ Please enter a valid phone number</div>
         </div>
+
+        <!-- COUNTRY -->
         <div>
           <label class="text-sm font-bold text-gray-900">Country *</label>
           <input name="country" required class="w-full mt-2 p-3.5 border-2 border-gray-300 rounded-lg focus-ring font-medium" placeholder="E.g. United States" />
           <div class="text-red-600 text-xs mt-1 hidden country-error font-bold">⚠ Please enter a valid country</div>
         </div>
+
+        <!-- ADDRESS (AUTOCOMPLETE ONLY) -->
         <div>
           <label class="text-sm font-bold text-gray-900">Address/Location * (must select from autocomplete)</label>
           <div class="relative">
-            <input id="addressInput" name="address" required class="w-full mt-2 p-3.5 border-2 border-gray-300 rounded-lg focus-ring font-medium" placeholder="Start typing your address..." autocomplete="off" />
-            <div id="addressLoader" class="absolute right-4 top-4 hidden"><div class="spinner"></div></div>
+            <input 
+              id="addressInput" 
+              name="address" 
+              required 
+              class="w-full mt-2 p-3.5 border-2 border-gray-300 rounded-lg focus-ring font-medium" 
+              placeholder="Start typing your address..."
+              autocomplete="off"
+            />
+            <div id="addressLoader" class="absolute right-4 top-4 hidden">
+              <div class="spinner"></div>
+            </div>
           </div>
           <div id="addressSuggestions" class="mt-2 grid gap-2 max-h-48 overflow-y-auto border-2 border-gray-300 rounded-lg p-2 bg-white hidden"></div>
           <div id="addressError" class="text-red-600 text-xs mt-2 hidden font-bold">✗ Must select an address from suggestions</div>
           <div id="addressSuccess" class="text-green-600 text-xs mt-2 hidden font-bold">✓ Address confirmed</div>
         </div>
+
+        <!-- CURRENCY -->
         <div>
           <label class="text-sm font-bold text-gray-900">Currency *</label>
           <div class="mt-3 flex gap-4">
@@ -645,6 +739,7 @@ const INDEX = `<!doctype html>
                 </div>
               </div>
             </label>
+
             <label class="cursor-pointer flex items-center gap-3 p-4 border-2 border-gray-300 rounded-xl hover:border-olive hover:bg-olive/5 transition flex-1">
               <input type="radio" name="currency" value="USD" class="peer w-5 h-5 accent-olive" />
               <div class="flex items-center gap-2">
@@ -658,233 +753,300 @@ const INDEX = `<!doctype html>
           </div>
           <div id="currencyError" class="text-red-600 text-xs mt-3 hidden font-bold">✗ Please select a currency</div>
         </div>
+
+        <!-- SECURITY INFO -->
         <div class="p-5 bg-blue-50 border-2 border-blue-200 rounded-xl">
           <p class="text-sm text-blue-900 leading-relaxed font-medium">
             <strong>🔐 Secure Payment:</strong> Your payment will be verified automatically on blockchain after completing the Onramper transaction.
           </p>
         </div>
+
+        <!-- BUTTONS -->
         <div class="flex gap-3 pt-6">
-          <button type="submit" id="confirmReserve" class="flex-1 bg-olive text-white py-4 rounded-xl font-bold text-lg hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">Confirm & Pay</button>
-          <button type="button" id="payLater" class="flex-1 border-2 border-gray-300 py-4 rounded-xl font-bold text-gray-900 hover:bg-gray-50 transition">Pay Later</button>
+          <button type="submit" id="confirmReserve" class="flex-1 bg-olive text-white py-4 rounded-xl font-bold text-lg hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">
+            Confirm & Pay
+          </button>
+          <button type="button" id="payLater" class="flex-1 border-2 border-gray-300 py-4 rounded-xl font-bold text-gray-900 hover:bg-gray-50 transition">
+            Pay Later
+          </button>
         </div>
+
         <p class="text-xs text-gray-600 text-center font-medium">
           By reserving you accept our <a href="#" class="text-olive hover:underline font-bold">Terms & Conditions</a>
         </p>
       </form>
     </div>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const CONFIG = {
-        locationIqApiKey: window.ENV_LOCATION_IQ_KEY,
-        emailjsService: window.ENV_EMAILJS_SERVICE_ID,
-        emailjsTemplate: window.ENV_EMAILJS_TEMPLATE_ID
-      };
-      const ONRAMPER_URLS = {
-  EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false', 
-  USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false'   
-};
-      try {
-        if (typeof emailjs !== 'undefined') {
-          emailjs.init(window.ENV_EMAILJS_PUBLIC_KEY);
-        }
-      } catch (e) {
-        console.error("EmailJS Error:", e);
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const CONFIG = {
+      locationIqApiKey: 'pk_5e06b6a83b83a',
+      emailjsService: 'service_oplyt2g',
+      emailjsTemplate: 'template_qyj8ure'
+    };
+
+    const ONRAMPER_URLS = {
+      EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false',
+      USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false'
+    };
+
+    try {
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init("reJMUB5suajjDVUYf");
       }
-      const modal = document.getElementById('reserveModal');
-      const reserveForm = document.getElementById('reserveForm');
-      const confirmReserveBtn = document.getElementById('confirmReserve');
-      const addressInput = document.getElementById('addressInput');
-      const addressSuggestions = document.getElementById('addressSuggestions');
-      const addressLoader = document.getElementById('addressLoader');
-      const addressError = document.getElementById('addressError');
-      const addressSuccess = document.getElementById('addressSuccess');
-      if (!modal) return;
-      let selectedAddress = null;
-      let addressDebounceTimer = null;
-      function openModal(e) {
-        if (e) e.preventDefault();
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        document.body.style.overflow = '';
-        reserveForm.reset();
-        selectedAddress = null;
-        addressSuggestions.innerHTML = '';
-        addressSuggestions.classList.add('hidden');
-      }
-      document.querySelectorAll('[data-reserva]').forEach(btn => {
-        btn.addEventListener('click', openModal);
-      });
-      document.getElementById('closeModal').addEventListener('click', closeModal);
-      document.getElementById('payLater').addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
-      });
-      if (addressInput) {
-        addressInput.addEventListener('input', function(e) {
-          const query = e.target.value.trim();
-          clearTimeout(addressDebounceTimer);
-          addressError.classList.add('hidden');
-          addressSuccess.classList.add('hidden');
-          if (query.length < 3) {
-            addressSuggestions.classList.add('hidden');
-            return;
-          }
-          addressLoader.classList.remove('hidden');
-          addressDebounceTimer = setTimeout(async () => {
-            try {
-              const response = await fetch('https://us1.locationiq.com/v1/autocomplete.php?key=' + CONFIG.locationIqApiKey + '&q=' + encodeURIComponent(query) + '&format=json&limit=5');
-              if (!response.ok) throw new Error('Error API');
-              const results = await response.json();
-              addressSuggestions.innerHTML = '';
-              addressLoader.classList.add('hidden');
-              if (!results || results.length === 0) {
-                addressSuggestions.innerHTML = '<div class="p-3 text-sm text-gray-600">No results found</div>';
-                addressSuggestions.classList.remove('hidden');
-                return;
-              }
-              results.forEach(result => {
-                const div = document.createElement('div');
-                div.className = 'p-3 border-b border-gray-200 hover:bg-olive/8 cursor-pointer text-sm transition font-medium';
-                div.innerHTML = '<strong class="text-gray-900">' + result.display_name.split(',')[0] + '</strong><br><span class="text-xs text-gray-600">' + result.display_name + '</span>';
-                div.onclick = () => {
-                  addressInput.value = result.display_name;
-                  selectedAddress = { display_name: result.display_name, lat: result.lat, lon: result.lon };
-                  addressSuggestions.classList.add('hidden');
-                  addressSuccess.classList.remove('hidden');
-                };
-                addressSuggestions.appendChild(div);
-              });
-              addressSuggestions.classList.remove('hidden');
-            } catch (error) {
-              console.error(error);
-              addressLoader.classList.add('hidden');
-            }
-          }, 500);
-        });
-      }
-      function validateForm() {
-        let isValid = true;
-        const nameInput = reserveForm.querySelector('input[name="name"]');
-        const nameError = reserveForm.querySelector('.name-error');
-        if (nameInput.value.trim().length < 2) {
-          nameInput.classList.add('border-error');
-          nameError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          nameInput.classList.remove('border-error');
-          nameError.classList.add('hidden');
+    } catch (e) {
+      console.error("EmailJS Error:", e);
+    }
+
+    const modal = document.getElementById('reserveModal');
+    const reserveForm = document.getElementById('reserveForm');
+    const confirmReserveBtn = document.getElementById('confirmReserve');
+    const addressInput = document.getElementById('addressInput');
+    const addressSuggestions = document.getElementById('addressSuggestions');
+    const addressLoader = document.getElementById('addressLoader');
+    const addressError = document.getElementById('addressError');
+    const addressSuccess = document.getElementById('addressSuccess');
+
+    if (!modal) return;
+
+    let selectedAddress = null;
+    let addressDebounceTimer = null;
+
+    function openModal(e) {
+      if (e) e.preventDefault();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      reserveForm.reset();
+      selectedAddress = null;
+      addressSuggestions.innerHTML = '';
+      addressSuggestions.classList.add('hidden');
+    }
+
+    document.querySelectorAll('[data-reserva]').forEach(btn => {
+      btn.addEventListener('click', openModal);
+    });
+
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('payLater').addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    // ADDRESS AUTOCOMPLETE
+    if (addressInput) {
+      addressInput.addEventListener('input', function(e) {
+        const query = e.target.value.trim();
+        clearTimeout(addressDebounceTimer);
+
+        addressError.classList.add('hidden');
+        addressSuccess.classList.add('hidden');
+
+        if (query.length < 3) {
+          addressSuggestions.classList.add('hidden');
+          return;
         }
-        const emailInput = reserveForm.querySelector('input[name="email"]');
-        const emailError = reserveForm.querySelector('.email-error');
-        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-        if (!emailRegex.test(emailInput.value)) {
-          emailInput.classList.add('border-error');
-          emailError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          emailInput.classList.remove('border-error');
-          emailError.classList.add('hidden');
-        }
-        const phonePrefix = reserveForm.querySelector('select[name="phone_prefix"]');
-        const phoneInput = reserveForm.querySelector('input[name="phone"]');
-        const phoneError = reserveForm.querySelector('.phone-error');
-        if (!phonePrefix.value || phoneInput.value.trim().length < 5) {
-          phonePrefix.classList.add('border-error');
-          phoneInput.classList.add('border-error');
-          phoneError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          phonePrefix.classList.remove('border-error');
-          phoneInput.classList.remove('border-error');
-          phoneError.classList.add('hidden');
-        }
-        const countryInput = reserveForm.querySelector('input[name="country"]');
-        const countryError = reserveForm.querySelector('.country-error');
-        if (countryInput.value.trim().length < 2) {
-          countryInput.classList.add('border-error');
-          countryError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          countryInput.classList.remove('border-error');
-          countryError.classList.add('hidden');
-        }
-        if (!selectedAddress) {
-          addressInput.classList.add('border-error');
-          addressError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          addressInput.classList.remove('border-error');
-          addressError.classList.add('hidden');
-        }
-        const currencyRadios = reserveForm.querySelectorAll('input[name="currency"]');
-        const currencyError = document.getElementById('currencyError');
-        const currencySelected = Array.from(currencyRadios).some(r => r.checked);
-        if (!currencySelected) {
-          currencyError.classList.remove('hidden');
-          isValid = false;
-        } else {
-          currencyError.classList.add('hidden');
-        }
-        return isValid;
-      }
-      if (reserveForm) {
-        reserveForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          if (!validateForm()) {
-            return;
-          }
-          const formData = new FormData(reserveForm);
-          const currency = formData.get('currency');
-          const email = formData.get('email');
-          const clientData = {
-            id: 'ORD-' + Date.now(),
-            name: formData.get('name'),
-            email: email,
-            phone: formData.get('phone_prefix') + formData.get('phone'),
-            country: formData.get('country'),
-            currency: currency,
-            amount: 49,
-            address: selectedAddress.display_name,
-            timestamp: new Date().toISOString()
-          };
-          sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
+
+        addressLoader.classList.remove('hidden');
+
+        addressDebounceTimer = setTimeout(async () => {
           try {
-            await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplate, {
-              to_email: email,
-              order_id: clientData.id,
-              customer_name: clientData.name,
-              amount: currency === 'EUR' ? '€49' : '$49',
-              address: clientData.address,
-              message: 'Your MINIWASH order #' + clientData.id + ' has been received. Proceeding to payment...'
+            const response = await fetch(
+              \`https://us1.locationiq.com/v1/autocomplete.php?key=\${CONFIG.locationIqApiKey}&q=\${encodeURIComponent(query)}&format=json&limit=5\`
+            );
+            if (!response.ok) throw new Error('Error API');
+            
+            const results = await response.json();
+            addressSuggestions.innerHTML = '';
+            addressLoader.classList.add('hidden');
+
+            if (!results || results.length === 0) {
+              addressSuggestions.innerHTML = '<div class="p-3 text-sm text-gray-600">No results found</div>';
+              addressSuggestions.classList.remove('hidden');
+              return;
+            }
+
+            results.forEach(result => {
+              const div = document.createElement('div');
+              div.className = 'p-3 border-b border-gray-200 hover:bg-olive/8 cursor-pointer text-sm transition font-medium';
+              div.innerHTML = \`<strong class="text-gray-900">\${result.display_name.split(',')[0]}</strong><br><span class="text-xs text-gray-600">\${result.display_name}</span>\`;
+              div.onclick = () => {
+                addressInput.value = result.display_name;
+                selectedAddress = {
+                  display_name: result.display_name,
+                  lat: result.lat,
+                  lon: result.lon
+                };
+                addressSuggestions.classList.add('hidden');
+                addressSuccess.classList.remove('hidden');
+              };
+              addressSuggestions.appendChild(div);
             });
-          } catch (err) {
-            console.warn('Email send failed:', err);
+            addressSuggestions.classList.remove('hidden');
+
+          } catch (error) {
+            console.error(error);
+            addressLoader.classList.add('hidden');
           }
-          confirmReserveBtn.innerHTML = '⏳ Redirecting...';
-          setTimeout(() => {
-            window.location.href = ONRAMPER_URLS[currency];
-          }, 1000);
-        });
+        }, 500);
+      });
+    }
+
+    // FORM VALIDATION
+    function validateForm() {
+      let isValid = true;
+
+      // Name
+      const nameInput = reserveForm.querySelector('input[name="name"]');
+      const nameError = reserveForm.querySelector('.name-error');
+      if (nameInput.value.trim().length < 2) {
+        nameInput.classList.add('border-error');
+        nameError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        nameInput.classList.remove('border-error');
+        nameError.classList.add('hidden');
       }
-      document.querySelectorAll('.testimonial-dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-          const index = parseInt(dot.dataset.index);
-          const testimonials = document.querySelectorAll('.testimonial');
-          const dots = document.querySelectorAll('.testimonial-dot');
-          testimonials.forEach((t, i) => {
+
+      // Email
+      const emailInput = reserveForm.querySelector('input[name="email"]');
+      const emailError = reserveForm.querySelector('.email-error');
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        emailInput.classList.add('border-error');
+        emailError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        emailInput.classList.remove('border-error');
+        emailError.classList.add('hidden');
+      }
+
+      // Phone
+      const phonePrefix = reserveForm.querySelector('select[name="phone_prefix"]');
+      const phoneInput = reserveForm.querySelector('input[name="phone"]');
+      const phoneError = reserveForm.querySelector('.phone-error');
+      if (!phonePrefix.value || phoneInput.value.trim().length < 5) {
+        phonePrefix.classList.add('border-error');
+        phoneInput.classList.add('border-error');
+        phoneError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        phonePrefix.classList.remove('border-error');
+        phoneInput.classList.remove('border-error');
+        phoneError.classList.add('hidden');
+      }
+
+      // Country
+      const countryInput = reserveForm.querySelector('input[name="country"]');
+      const countryError = reserveForm.querySelector('.country-error');
+      if (countryInput.value.trim().length < 2) {
+        countryInput.classList.add('border-error');
+        countryError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        countryInput.classList.remove('border-error');
+        countryError.classList.add('hidden');
+      }
+
+      // Address (must be from autocomplete)
+      if (!selectedAddress) {
+        addressInput.classList.add('border-error');
+        addressError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        addressInput.classList.remove('border-error');
+        addressError.classList.add('hidden');
+      }
+
+      // Currency
+      const currencyRadios = reserveForm.querySelectorAll('input[name="currency"]');
+      const currencyError = document.getElementById('currencyError');
+      const currencySelected = Array.from(currencyRadios).some(r => r.checked);
+      if (!currencySelected) {
+        currencyError.classList.remove('hidden');
+        isValid = false;
+      } else {
+        currencyError.classList.add('hidden');
+      }
+
+      return isValid;
+    }
+
+    // SUBMIT FORM
+    if (reserveForm) {
+      reserveForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+          return;
+        }
+
+        const formData = new FormData(reserveForm);
+        const currency = formData.get('currency');
+        const email = formData.get('email');
+
+        const clientData = {
+          id: \`ORD-\${Date.now()}\`,
+          name: formData.get('name'),
+          email: email,
+          phone: formData.get('phone_prefix') + formData.get('phone'),
+          country: formData.get('country'),
+          currency: currency,
+          amount: 49,
+          address: selectedAddress.display_name,
+          timestamp: new Date().toISOString()
+        };
+        
+        sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
+
+        // SEND EMAIL VIA EMAILJS
+        try {
+          await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplate, {
+            to_email: email,
+            order_id: clientData.id,
+            customer_name: clientData.name,
+            amount: currency === 'EUR' ? '€49' : '$49',
+            address: clientData.address,
+            message: \`Your MINIWASH order #\${clientData.id} has been received. Proceeding to payment...\`
+          });
+        } catch (err) {
+          console.warn('Email send failed:', err);
+        }
+
+        confirmReserveBtn.innerHTML = '⏳ Redirecting...';
+        
+        setTimeout(() => {
+           window.location.href = ONRAMPER_URLS[currency];
+        }, 1000);
+      });
+    }
+
+    // TESTIMONIALS
+    document.querySelectorAll('.testimonial-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.dataset.index);
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.testimonial-dot');
+
+        testimonials.forEach((t, i) => {
             if(i === index) t.classList.remove('hidden');
             else t.classList.add('hidden');
-          });
-          dots.forEach((d, i) => {
+        });
+        
+        dots.forEach((d, i) => {
             if(i === index) { 
               d.classList.remove('bg-gray-300'); 
               d.classList.add('bg-olive'); 
@@ -893,32 +1055,26 @@ const INDEX = `<!doctype html>
               d.classList.add('bg-gray-300'); 
               d.classList.remove('bg-olive'); 
             }
-          });
         });
       });
     });
-  </script>
+
+  });
+<\/script>
+
 </body>
-</html>\`;
+</html>`;
 
-// ========================================
-// WORKER LOGIC (OUTSIDE INDEX)
-// ========================================
-
+// ---------------------
+// Worker controller
+// ---------------------
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
     try {
-      // Serve main HTML page
-      if (pathname === '/' || pathname === '') {
-        return new Response(INDEX, {
-          headers: { 'Content-Type': 'text/html; charset=utf-8' }
-        });
-      }
-
-      // Address search API endpoint
+      // 1. Address search endpoint
       if (pathname === '/api/address-search') {
         const query = url.searchParams.get('q');
         if (!query) return new Response(JSON.stringify([]), { status: 400 });
@@ -932,14 +1088,120 @@ export default {
         });
       }
 
-      // 404 for unknown routes
-      return new Response('Not Found', { status: 404 });
+      // 2. Save payment endpoint
+      if (pathname === '/api/save-payment') {
+        return await handleSavePayment(request, env);
+      }
+
+      // 3. Serve main page
+      return new Response(INDEX, {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
 
     } catch (error) {
-      return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), {
+      return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
     }
   }
 };
+
+// --- SUPPORT FUNCTION: handleSavePayment ---
+async function handleSavePayment(request, env) {
+  if (request.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+
+  try {
+    const paymentData = await request.json();
+
+    // A. Obtener datos actuales del Bin (JSONBin)
+    const getBinResponse = await fetch(
+      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
+      {
+        method: 'GET',
+        headers: { 'X-Master-Key': env.JSON_BIN_KEY }
+      }
+    );
+
+    let pagos = [];
+    if (getBinResponse.ok) {
+      const binData = await getBinResponse.json();
+      pagos = binData.record.pagos || [];
+    }
+
+    // B. Añadir el nuevo registro estructurado
+    const nuevoPago = {
+      id: paymentData.id || `ORD-${Date.now()}`,
+      cliente: {
+        nombre: paymentData.name,
+        email: paymentData.email,
+        telefono: paymentData.phone,
+        pais: paymentData.country
+      },
+      ubicacion: {
+        direccion_completa: paymentData.address
+      },
+      pago: {
+        monto: paymentData.amount,
+        moneda: paymentData.currency,
+        estado: 'payment_completed',
+        metodo: 'Onramper_USDT_Polygon'
+      },
+      metadata: {
+        producto: 'MINIWASH',
+        fecha_creacion: new Date().toISOString()
+      }
+    };
+
+    pagos.push(nuevoPago);
+
+    // C. Update JSONBin
+    const updateBinResponse = await fetch(
+      `https://api.jsonbin.io/v3/b/${env.JSON_BIN_PAGOS_ID}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': env.JSON_BIN_KEY
+        },
+        body: JSON.stringify({ pagos: pagos })
+      }
+    );
+
+    if (!updateBinResponse.ok) throw new Error('Error saving to JSONBin');
+
+   // D. Send Email via EmailJS
+    const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: env.EMAILJS_SERVICE_ID,
+        template_id: env.EMAILJS_TEMPLATE_ID,
+        user_id: env.EMAILJS_PUBLIC_KEY,
+        template_params: {
+          to_email: paymentData.email,
+          to_name: paymentData.name,
+          order_id: nuevoPago.id,
+          amount: paymentData.currency === 'EUR' ? '49€' : '$49',
+          address: paymentData.address
+        }
+      })
+    });
+
+    return new Response(JSON.stringify({ 
+      ok: true, 
+      message: 'Proceso completado con éxito',
+      order_id: nuevoPago.id 
+    }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({ ok: false, error: err.message }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+}
