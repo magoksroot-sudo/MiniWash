@@ -1,1 +1,0 @@
-miniwash.js.org
