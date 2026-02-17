@@ -403,7 +403,7 @@ const INDEX = `<!doctype html>
           <div id="hero-slider" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-hero shadow-2xl" style="scrollbar-width: none; -ms-overflow-style: none;">
             
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover" alt="Miniwash 1">
+              <img src="https://i.postimg.cc/bYFL1rft/Gemini-Generated-Image-mqx9cfmqx9cfmqx9.png" class="w-full h-full object-cover" alt="Miniwash 1">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
