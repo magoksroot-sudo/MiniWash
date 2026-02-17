@@ -1019,19 +1019,7 @@ const INDEX = `<!doctype html>
         
         sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
 
-        // SEND EMAIL VIA EMAILJS
-        try {
-          await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplate, {
-            to_email: email,
-            order_id: clientData.id,
-            customer_name: clientData.name,
-            amount: currency === 'EUR' ? '€49' : '$49',
-            address: clientData.address,
-            message: \`Your MINIWASH order #\${clientData.id} has been received. Proceeding to payment...\`
-          });
-        } catch (err) {
-          console.warn('Email send failed:', err);
-        }
+    
 
         confirmReserveBtn.innerHTML = '⏳ Redirecting...';
         
@@ -1071,6 +1059,78 @@ const INDEX = `<!doctype html>
 
 </body>
 </html>`;
+const PAGINA_CONFIRMACION = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payment Confirmed — MINIWASH®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --olive: #556B2F; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #F5F7F3 0%, #EEF1EB 100%);
+      display: flex; align-items: center; justify-content: center;
+      height: 100vh; color: #0f172a;
+    }
+    .card {
+      background: white;
+      border: 2px solid rgba(85,107,47,0.15);
+      border-radius: 2rem;
+      padding: 3rem 4rem;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(85,107,47,0.12);
+      max-width: 480px;
+      width: 90%;
+    }
+    .icon { font-size: 72px; margin-bottom: 1.5rem; }
+    h1 { font-size: 2rem; font-weight: 800; color: var(--olive); margin-bottom: 0.75rem; }
+    p { color: #64748b; font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; }
+    .countdown {
+      margin-top: 2rem;
+      background: rgba(85,107,47,0.08);
+      border: 1.5px solid rgba(85,107,47,0.15);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--olive);
+      font-weight: 700;
+    }
+    .brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 2rem; color: #0f172a; }
+    .brand span { color: var(--olive); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">MINIWASH<span>.</span></div>
+    <div class="icon">✅</div>
+    <h1>Payment Confirmed!</h1>
+    <p>Thank you for your order.</p>
+    <p>You'll receive a confirmation email shortly.</p>
+    <p>📧 <strong>Check your inbox</strong> — confirmation details have been sent to your email.</p>
+    <div class="countdown">Returning to store in <span id="t">5</span> seconds...</div>
+  </div>
+<script>
+  (async () => {
+    const datos = JSON.parse(sessionStorage.getItem('miniwash_reservation'));
+    if (datos) {
+      await fetch('/api/save-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+      sessionStorage.removeItem('miniwash_reservation');
+    }
+    let s = 5;
+    const el = document.getElementById('t');
+    setInterval(() => { el.textContent = --s; }, 1000);
+    setTimeout(() => window.location.href = 'https://tusitio.com/', 5000);
+  })();
+<\/script>
+</body></html>`;
+     
 
 // ---------------------
 // Worker controller
@@ -1099,6 +1159,11 @@ export default {
       // 2. Save payment endpoint
       if (pathname === '/api/save-payment') {
         return await handleSavePayment(request, env);
+      }
+       if (pathname === '/pago-confirmado') {
+        return new Response(PAGINA_CONFIRMACION, {
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        });
       }
 
       // 3. Serve main page
