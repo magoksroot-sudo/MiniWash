@@ -1059,7 +1059,7 @@ const INDEX = `<!doctype html>
 
 </body>
 </html>`;
-const PAGINA_CONFIRMACION = `<!doctype html>
+const PAGINA_CONFIRMACION = `<doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
