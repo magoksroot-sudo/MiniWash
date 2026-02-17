@@ -1059,7 +1059,7 @@ const INDEX = `<!doctype html>
 
 </body>
 </html>`;
-const PAGINA_CONFIRMACION = <!doctype html>
+const PAGINA_CONFIRMACION = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -1268,7 +1268,7 @@ const PAGINA_CONFIRMACION = <!doctype html>
         const el = document.getElementById('t');
         const sr = document.getElementById('sr-status');
         el.textContent = String(s);
-        if (sr) sr.textContent = `Payment confirmed. Will redirect to store in ${s} seconds.`;
+        if (sr) sr.textContent = \`Payment confirmed. Will redirect to store in \${s} seconds.\`;
         const tick = () => {
           s--;
           if (s <= 0) {
@@ -1279,7 +1279,7 @@ const PAGINA_CONFIRMACION = <!doctype html>
             return;
           }
           el.textContent = String(s);
-          if (sr) sr.textContent = `Payment confirmed. Will redirect to store in ${s} seconds.`;
+          if (sr) sr.textContent = \`Payment confirmed. Will redirect to store in \${s} seconds.\`;
         };
         const timer = setInterval(tick, 1000);
         // safety: ensure redirect even if timer stopped somehow
@@ -1291,9 +1291,8 @@ const PAGINA_CONFIRMACION = <!doctype html>
         // final redirect (keeps your original destination)
         try { window.location.href = 'https://tusitio.com/'; } catch(e){ /* noop */ }
       });
-
     })();
-  </script>
+  <\/script>
 </body>
 </html>`;
      
