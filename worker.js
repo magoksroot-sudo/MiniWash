@@ -1,4 +1,216 @@
 // 🔐 YOUR COMPLETE HTML HERE
+const CONFIRMATION_PAGE = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Payment Confirmed — MINIWASH®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --olive: #556B2F;
+      --olive-600: #46561f;
+      --muted: #64748b;
+      --bg-1: #F5F7F3;
+      --bg-2: #EEF1EB;
+      --card-border: rgba(85,107,47,0.12);
+      --shadow: 0 20px 50px rgba(12,25,18,0.08);
+      --radius: 1.5rem;
+      --max-width: 720px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(135deg,var(--bg-1) 0%, var(--bg-2) 100%);
+      color:#071224;
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1rem;
+      min-height:100vh;
+    }
+
+    .card{
+      width: min(92%, var(--max-width));
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+      border-radius: 2rem;
+      padding: clamp(1.5rem, 3.2vw, 3rem);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--card-border);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap: 1.25rem;
+      animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand{
+      font-weight:800;
+      font-size: 1.1rem;
+      letter-spacing:-0.01em;
+      color: #071224;
+    }
+    .brand span{ color: var(--olive); }
+
+    .badge {
+      display:inline-grid;
+      place-items:center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(85,107,47,0.15), rgba(85,107,47,0.05));
+      border: 2px solid rgba(85,107,47,0.2);
+      box-shadow: 0 8px 24px rgba(85,107,47,0.15);
+    }
+
+    .icon svg{ width: 48px; height: auto; }
+
+    h1{
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      color: var(--olive-600);
+      font-weight:800;
+      line-height:1.1;
+      margin-top: 0.5rem;
+    }
+
+    p{
+      color: var(--muted);
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      line-height: 1.6;
+    }
+
+    .countdown{
+      margin-top: 1rem;
+      background: rgba(85,107,47,0.08);
+      border: 2px solid rgba(85,107,47,0.12);
+      border-radius: 1rem;
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+      color: var(--olive-600);
+      font-weight:700;
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      min-width: 240px;
+      justify-content:center;
+    }
+
+    .countdown strong {
+      font-size: 1.5rem;
+      color: var(--olive);
+    }
+
+    .email-note {
+      background: #f0f9ff;
+      border: 2px solid #bae6fd;
+      border-radius: 0.75rem;
+      padding: 1rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .email-note strong {
+      color: #0369a1;
+    }
+
+    @media (max-width:360px){
+      .countdown{font-size:.85rem; min-width:200px; padding: 0.7rem 1rem;}
+      .countdown strong {font-size: 1.2rem;}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="status" aria-live="polite">
+    <div class="brand">MINIWASH<span>.</span></div>
+
+    <div class="badge">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="11" fill="#ECF8EE"/>
+          <path d="M7.5 12.6l2.6 2.6 6.4-6.4" stroke="#35612A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1>✓ Payment Confirmed!</h1>
+
+    <p style="font-size: 1.1rem; color: #334155; font-weight: 500;">Thank you for your order.</p>
+    
+    <div class="email-note">
+      <p style="margin: 0;">
+        📧 <strong>Check your inbox</strong> — confirmation details sent!
+      </p>
+    </div>
+
+    <div class="countdown" aria-live="polite">
+      Redirecting in <strong id="t">5</strong>s
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      // 🔹 CAMBIA ESTE URL AQUÍ 👇
+      const REDIRECT_URL = 'https://miniwash.miniwash.workers.dev/';
+      // 🔹 CAMBIA ESTE URL AQUÍ 👆
+
+      const API_ENDPOINT = '/api/save-payment';
+
+      // Guardar datos del pago
+      (async function savePaymentData() {
+        try {
+          const datos = JSON.parse(localStorage.getItem('miniwash_reservation'));
+          if (!datos) return;
+
+          const payload = JSON.stringify(datos);
+          
+          // Intentar sendBeacon primero (más rápido)
+          const sent = navigator.sendBeacon?.(API_ENDPOINT, new Blob([payload], {type: 'application/json'}));
+          
+          if (!sent) {
+            // Fallback a fetch
+            await fetch(API_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: payload,
+              signal: AbortSignal.timeout(3000)
+            }).catch(() => {});
+          }
+          
+          localStorage.removeItem('miniwash_reservation');
+        } catch (err) {
+          console.warn('Payment save failed:', err);
+        }
+      })();
+
+      // Countdown y redirección
+      (function countdown() {
+        let s = 5;
+        const el = document.getElementById('t');
+        
+        const tick = () => {
+          s--;
+          el.textContent = s;
+          
+          if (s <= 0) {
+            clearInterval(timer);
+            window.location.href = REDIRECT_URL;
+          }
+        };
+        
+        const timer = setInterval(tick, 1000);
+      })();
+    })();
+  </script>
+</body>
+</html>`;
 const INDEX = `<!doctype html>
 <html lang="en">
 <head>
