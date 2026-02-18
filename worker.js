@@ -880,14 +880,15 @@ const INDEX = `<!doctype html>
             const results = await response.json();
             addressSuggestions.innerHTML = '';
             addressLoader.classList.add('hidden');
-
-            if (!results || results.length === 0) {
-              addressSuggestions.innerHTML = '<div class="p-3 text-sm text-gray-600">No results found</div>';
-              addressSuggestions.classList.remove('hidden');
-              return;
-            }
-
-            results.forEach(result => {
+            // Validar que results sea un array
+          if (!Array.isArray(results) || results.length === 0) {
+            console.error('API Response:', results); // Para debug
+            addressSuggestions.innerHTML = '<div class="p-3 text-sm text-gray-600">No results found</div>';
+            addressSuggestions.classList.remove('hidden');
+            return;
+          }
+          
+          results.forEach(result => {
               const div = document.createElement('div');
               div.className = 'p-3 border-b border-gray-200 hover:bg-olive/8 cursor-pointer text-sm transition font-medium';
               div.innerHTML = \`<strong class="text-gray-900">\${result.display_name.split(',')[0]}</strong><br><span class="text-xs text-gray-600">\${result.display_name}</span>\`;
