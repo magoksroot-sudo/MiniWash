@@ -872,7 +872,7 @@ const INDEX = `<!doctype html>
         addressDebounceTimer = setTimeout(async () => {
           try {
         const response = await fetch(
-        `/api/address-search?q=${encodeURIComponent(query)}`
+        \`/api/address-search?q=\${encodeURIComponent(query)}\`
       );
  
             if (!response.ok) throw new Error('Error API');
@@ -1008,7 +1008,7 @@ const INDEX = `<!doctype html>
         const email = formData.get('email');
 
         const clientData = {
-          id: `ORD-${Date.now()}`
+          id: \`ORD-\${Date.now()}\`,
           name: formData.get('name'),
           email: email,
           phone: formData.get('phone_prefix') + formData.get('phone'),
@@ -1019,7 +1019,7 @@ const INDEX = `<!doctype html>
           timestamp: new Date().toISOString()
         };
         
-        sessionStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
+        localStorage.setItem('miniwash_reservation', JSON.stringify(clientData));
 
     
 
@@ -1079,18 +1079,33 @@ if (pathname === '/api/address-search') {
   const query = url.searchParams.get('q');
   if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
-  const apiUrl = `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`;
+  const apiUrl = `https://api.locationiq.com/v1/autocomplete?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5&normalizecity=1`
   
   console.log('🔑 API Key exists:', !!env.LOCATION_IQ_KEY);
   console.log('🌐 Query:', query);
 
-  const response = await fetch(apiUrl);
+  
+  const response = await fetch(apiUrl, {
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (!response.ok) {
+    const errText = await response.text();
+    console.error('LocationIQ error:', response.status, errText);
+    return new Response(JSON.stringify([]), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   const data = await response.json();
-  
   console.log('📥 API Response:', data);
-  
+
   return new Response(JSON.stringify(data), {
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
   });
 }
 
