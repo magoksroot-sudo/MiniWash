@@ -1084,7 +1084,7 @@ const INDEX = `<!doctype html>
         addressDebounceTimer = setTimeout(async () => {
           try {
         const response = await fetch(
-        \`/api/address-search?q=\${encodeURIComponent(query)}\`
+         \`/api/address-search?q=\${encodeURIComponent(query)}\`
       );
  
             if (!response.ok) throw new Error('Error API');
