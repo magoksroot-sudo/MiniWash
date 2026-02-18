@@ -1109,6 +1109,12 @@ if (pathname === '/api/address-search') {
   });
 }
 
+      if (pathname === '/pago-confirmado') {
+  return new Response(CONFIRMATION_PAGE, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' }
+  });
+}
+
       // 2. Save payment endpoint
       if (pathname === '/api/save-payment') {
         return await handleSavePayment(request, env);
