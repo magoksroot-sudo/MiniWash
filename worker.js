@@ -872,7 +872,7 @@ const INDEX = `<!doctype html>
         addressDebounceTimer = setTimeout(async () => {
           try {
         const response = await fetch(
-        \`/api/address-search?q=\${encodeURIComponent(query)}\`
+        `/api/address-search?q=${encodeURIComponent(query)}`
       );
  
             if (!response.ok) throw new Error('Error API');
@@ -1008,7 +1008,7 @@ const INDEX = `<!doctype html>
         const email = formData.get('email');
 
         const clientData = {
-          id: \`ORD-\${Date.now()}\`,
+          id: `ORD-${Date.now()}`
           name: formData.get('name'),
           email: email,
           phone: formData.get('phone_prefix') + formData.get('phone'),
@@ -1074,18 +1074,25 @@ export default {
 
     try {
       // 1. Address search endpoint
-      if (pathname === '/api/address-search') {
-        const query = url.searchParams.get('q');
-        if (!query) return new Response(JSON.stringify([]), { status: 400 });
+      // 1. Address search endpoint
+if (pathname === '/api/address-search') {
+  const query = url.searchParams.get('q');
+  if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
-        const response = await fetch(
-          `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`
-        );
-        const data = await response.json();
-        return new Response(JSON.stringify(data), {
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
+  const apiUrl = `https://us1.locationiq.com/v1/autocomplete.php?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5`;
+  
+  console.log('🔑 API Key exists:', !!env.LOCATION_IQ_KEY);
+  console.log('🌐 Query:', query);
+
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  
+  console.log('📥 API Response:', data);
+  
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 
       // 2. Save payment endpoint
       if (pathname === '/api/save-payment') {
