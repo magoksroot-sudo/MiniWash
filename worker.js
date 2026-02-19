@@ -1000,7 +1000,6 @@ const INDEX = `<!doctype html>
   document.addEventListener('DOMContentLoaded', () => {
 
     const CONFIG = {
-  geoapifyKey: '__GEOAPIF_AUTOCOMPLET__',
   emailjsService: '__EMAILJS_SERVICE_ID__',
   emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
 };
@@ -1343,7 +1342,6 @@ if (pathname === '/api/address-search') {
 
       // 3. Serve main page
       const html = INDEX
-  .replace(/__GEOAPIF_AUTOCOMPLET__/g, env.GEOAPIF_AUTOCOMPLET)
   .replace(/__EMAILJS_SERVICE_ID__/g, env.EMAILJS_SERVICE_ID)
   .replace(/__EMAILJS_TEMPLATE_ID__/g, env.EMAILJS_TEMPLATE_ID)
   .replace(/__EMAILJS_PUBLIC_KEY__/g, env.EMAILJS_PUBLIC_KEY);
