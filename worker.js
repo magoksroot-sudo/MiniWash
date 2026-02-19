@@ -871,7 +871,7 @@ const INDEX = `<!doctype html>
 
   <!-- RESERVATION MODAL -->
   <div id="reserveModal"
-     class="fixed inset-0 z-60 hidden items-center justify-center bg-black/80 backdrop-blur-lg p-4"
+     class="fixed inset-0 z-60 hidden items-center justify-center bg-black/40 backdrop-blur-md p-4"
      role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content rounded-3xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto border-2 border-olive/15 shadow-2xl">
       <button id="closeModal" aria-label="close" class="absolute right-6 top-6 text-gray-500 hover:text-olive text-3xl font-bold transition">✕</button>
@@ -978,15 +978,14 @@ const INDEX = `<!doctype html>
         </div>
 
         <!-- BUTTONS -->
-        <!-- BUTTONS -->
-<div class="flex flex-col sm:flex-row gap-3 pt-6 w-full">
-  <button type="submit" id="confirmReserve" class="w-full sm:flex-1 bg-olive text-white py-4 rounded-xl font-bold text-lg hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">
-    Confirm & Pay
-  </button>
-  <button type="button" id="payLater" class="w-full sm:flex-1 border-2 border-gray-300 py-4 rounded-xl font-bold text-gray-900 hover:bg-gray-50 transition">
-    Pay Later
-  </button>
-</div>
+        <div class="flex gap-3 pt-6">
+          <button type="submit" id="confirmReserve" class="flex-1 bg-olive text-white py-4 rounded-xl font-bold text-lg hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">
+            Confirm & Pay
+          </button>
+          <button type="button" id="payLater" class="flex-1 border-2 border-gray-300 py-4 rounded-xl font-bold text-gray-900 hover:bg-gray-50 transition">
+            Pay Later
+          </button>
+        </div>
 
         <p class="text-xs text-gray-600 text-center font-medium">
           By reserving you accept our <a href="#" class="text-olive hover:underline font-bold">Terms & Conditions</a>
