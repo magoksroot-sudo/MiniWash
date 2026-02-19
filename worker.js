@@ -715,7 +715,7 @@ const INDEX = `<!doctype html>
           <button 
     class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl"
     id="storeReserveBtn"
-    onclick="document.getElementById('reserveModal').classList.remove('hidden'); document.getElementById('reserveModal').setAttribute('aria-hidden','false')"
+    onclick="document.getElementById('reserveModal').classList.remove('hidden'); document.getElementById('reserveModal').classList.add('flex'); document.getElementById('reserveModal').setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';"
 >
     RESERVE NOW
 </button>
@@ -871,7 +871,7 @@ const INDEX = `<!doctype html>
 
   <!-- RESERVATION MODAL -->
   <div id="reserveModal"
-     class="fixed inset-0 z-60 hidden items-center justify-center bg-black/40 backdrop-blur-md p-4"
+     class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/40 backdrop-blur-md p-4"
      role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content rounded-3xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto border-2 border-olive/15 shadow-2xl">
       <button id="closeModal" aria-label="close" class="absolute right-6 top-6 text-gray-500 hover:text-olive text-3xl font-bold transition">✕</button>
