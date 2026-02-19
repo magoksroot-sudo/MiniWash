@@ -525,6 +525,9 @@ const INDEX = `<!doctype html>
       .mobile-only{display:block}
       h1 { font-size: 2.25rem !important; }
     }
+    body.modal-open .group .absolute {
+      visibility: hidden;
+    }
 
   </style>
 
@@ -712,10 +715,10 @@ const INDEX = `<!doctype html>
           <div class="text-7xl font-black text-olive my-6">49<span class="text-3xl ml-1">€</span></div>
           <div class="text-xs uppercase font-bold tracking-[0.3em] text-gray-600 mb-10">One-time investment. Lifetime savings.</div>
 
-          <button 
-    class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl"
+          
+    <button class="w-full bg-olive text-white py-5 rounded-full font-black text-lg shadow-xl pulse-cta focus-ring hover:shadow-2xl"
     id="storeReserveBtn"
-    onclick="document.getElementById('reserveModal').classList.remove('hidden'); document.getElementById('reserveModal').classList.add('flex'); document.getElementById('reserveModal').setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';"
+    data-reserva
 >
     RESERVE NOW
 </button>
@@ -1022,12 +1025,14 @@ const INDEX = `<!doctype html>
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
     }
 
     function closeModal() {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
       reserveForm.reset();
       selectedAddress = null;
       addressSuggestions.innerHTML = '';
