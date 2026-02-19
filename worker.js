@@ -171,18 +171,17 @@ const CONFIRMATION_PAGE = `<!doctype html>
 
           const payload = JSON.stringify(datos);
           
-          // Intentar sendBeacon primero (más rápido)
-          const sent = navigator.sendBeacon?.(API_ENDPOINT, new Blob([payload], {type: 'application/json'}));
-          
-          if (!sent) {
             // Fallback a fetch
             await fetch(API_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: payload,
-              signal: AbortSignal.timeout(3000)
+            method: 'POST',
+            headers: { 
+            'Content-Type': 'application/json',
+            'X-Internal-Token': 'MINIWASH_2026_SECRET'
+            },
+            body: payload,
+            signal: AbortSignal.timeout(3000)
             }).catch(() => {});
-          }
+          
           
           localStorage.removeItem('miniwash_reservation');
         } catch (err) {
@@ -227,7 +226,6 @@ const INDEX = `<!doctype html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"><\/script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"><\/script>
 
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1626806819282-2c1dc61a0e05?auto=format&fit=crop&q=80&w=1200" />
   <style>
@@ -999,24 +997,11 @@ const INDEX = `<!doctype html>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
 
-    const CONFIG = {
-  emailjsService: '__EMAILJS_SERVICE_ID__',
-  emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
-};
-
 
     const ONRAMPER_URLS = {
       EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&successRedirectUrl=https://miniwash.miniwash.workers.dev/pago-confirmado&failureRedirectUrl=https://miniwash.miniwash.workers.dev/',
       USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&successRedirectUrl=https://miniwash.miniwash.workers.dev/pago-confirmado&failureRedirectUrl=https://miniwash.miniwash.workers.dev/'
     };
-
-    try {
-      if (typeof emailjs !== 'undefined') {
-        emailjs.init("__EMAILJS_PUBLIC_KEY__");
-      }
-    } catch (e) {
-      console.error("EmailJS Error:", e);
-    }
 
     const modal = document.getElementById('reserveModal');
     const reserveForm = document.getElementById('reserveForm');
@@ -1288,8 +1273,9 @@ export default {
       // 1. Address search endpoint
 if (pathname === '/api/address-search') {
   const query = url.searchParams.get('q');
-  if (!query) return new Response(JSON.stringify([]), { status: 400 });
-
+  if (!query || query.length < 3 || query.length > 100) {
+    return new Response(JSON.stringify([]), { status: 400 });
+  }
   const apiUrl = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&apiKey=${env.GEOAPIF_AUTOCOMPLET}&limit=5`
   
   console.log('🔑 API Key exists:', !!env.GEOAPIF_AUTOCOMPLET);
@@ -1341,14 +1327,9 @@ if (pathname === '/api/address-search') {
       }
 
       // 3. Serve main page
-      const html = INDEX
-  .replace(/__EMAILJS_SERVICE_ID__/g, env.EMAILJS_SERVICE_ID)
-  .replace(/__EMAILJS_TEMPLATE_ID__/g, env.EMAILJS_TEMPLATE_ID)
-  .replace(/__EMAILJS_PUBLIC_KEY__/g, env.EMAILJS_PUBLIC_KEY);
-
-return new Response(html, {
-  headers: { 'Content-Type': 'text/html; charset=utf-8' }
-});
+      return new Response(INDEX, {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
 
     } catch (error) {
       return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { 
@@ -1363,10 +1344,20 @@ return new Response(html, {
 async function handleSavePayment(request, env) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
+  }  
+    const token = request.headers.get('X-Internal-Token');
+  if (token !== 'MINIWASH_2026_SECRET') {
+    return new Response('Unauthorized', { status: 401 });
   }
 
   try {
     const paymentData = await request.json();
+
+    // Validar datos
+    if (!paymentData.email || !paymentData.name || 
+        !paymentData.amount || paymentData.amount !== 49) {
+      return new Response('Invalid data', { status: 400 });
+    }
 
     // A. Obtener datos actuales del Bin (JSONBin)
     const getBinResponse = await fetch(
@@ -1405,7 +1396,7 @@ async function handleSavePayment(request, env) {
         producto: 'MINIWASH',
         fecha_creacion: new Date().toISOString()
       }
-    };
+    };  
 
     pagos.push(nuevoPago);
 
@@ -1442,8 +1433,12 @@ async function handleSavePayment(request, env) {
       })
     });
 
+    if (!emailResponse.ok) {
+      console.error('EmailJS failed:', await emailResponse.text());
+    }
+
     return new Response(JSON.stringify({ 
-      ok: true, 
+      ok: true,
       message: 'Proceso completado con éxito',
       order_id: nuevoPago.id 
     }), {
