@@ -1000,7 +1000,7 @@ const INDEX = `<!doctype html>
   document.addEventListener('DOMContentLoaded', () => {
 
     const CONFIG = {
-  locationIqApiKey: '__LOCATION_IQ_KEY__',
+  geoapifyKey: '__GEOAPIF_AUTOCOMPLET__',
   emailjsService: '__EMAILJS_SERVICE_ID__',
   emailjsTemplate: '__EMAILJS_TEMPLATE_ID__'
 };
@@ -1291,9 +1291,9 @@ if (pathname === '/api/address-search') {
   const query = url.searchParams.get('q');
   if (!query) return new Response(JSON.stringify([]), { status: 400 });
 
-  const apiUrl = `https://api.locationiq.com/v1/autocomplete?key=${env.LOCATION_IQ_KEY}&q=${encodeURIComponent(query)}&format=json&limit=5&normalizecity=1`
+  const apiUrl = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&apiKey=${env.GEOAPIF_AUTOCOMPLET}&limit=5`
   
-  console.log('🔑 API Key exists:', !!env.LOCATION_IQ_KEY);
+  console.log('🔑 API Key exists:', !!env.GEOAPIF_AUTOCOMPLET);
   console.log('🌐 Query:', query);
 
   
@@ -1334,7 +1334,7 @@ if (pathname === '/api/address-search') {
 
       // 3. Serve main page
       const html = INDEX
-  .replace(/__LOCATION_IQ_KEY__/g, env.LOCATION_IQ_KEY)
+  .replace(/__GEOAPIF_AUTOCOMPLET__/g, env.GEOAPIF_AUTOCOMPLET)
   .replace(/__EMAILJS_SERVICE_ID__/g, env.EMAILJS_SERVICE_ID)
   .replace(/__EMAILJS_TEMPLATE_ID__/g, env.EMAILJS_TEMPLATE_ID)
   .replace(/__EMAILJS_PUBLIC_KEY__/g, env.EMAILJS_PUBLIC_KEY);
