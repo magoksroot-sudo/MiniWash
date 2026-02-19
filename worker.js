@@ -1311,9 +1311,18 @@ if (pathname === '/api/address-search') {
   }
 
   const data = await response.json();
-  console.log('📥 API Response:', data);
+  console.log('📥 Geoapify Response:', data);
 
-  return new Response(JSON.stringify(data), {
+// Transformar formato Geoapify → LocationIQ
+  const transformed = (data.features || []).map(feature => ({
+    display_name: feature.properties.formatted || feature.properties.address_line1 || 'Unknown',
+    lat: feature.geometry.coordinates[1],
+    lon: feature.geometry.coordinates[0]
+  }));
+
+  console.log('✅ Transformed:', transformed);
+
+  return new Response(JSON.stringify(transformed), {
     headers: { 
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
