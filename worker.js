@@ -760,7 +760,7 @@ const INDEX = `<!doctype html>
             </div>
             <div class="flex items-center gap-2 justify-center">
               <span class="text-lg">✓</span>
-              <strong>2-year complete warranty</strong>
+              <strong>3-year complete warranty</strong>
             </div>
             <div class="flex items-center gap-2 justify-center">
               <span class="text-lg">✓</span>
@@ -915,6 +915,71 @@ const INDEX = `<!doctype html>
     </section>
   </main>
 
+
+  <!-- TERMS MODAL -->
+<div id="termsModal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/50 backdrop-blur-md p-4" role="dialog" aria-modal="true">
+  <div class="bg-white rounded-3xl max-w-2xl w-full p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-olive/15">
+    <button id="closeTermsModal" class="absolute right-6 top-6 text-gray-400 hover:text-olive text-3xl font-bold transition">✕</button>
+    
+    <div class="mb-6">
+      <span class="text-xs font-black uppercase tracking-[0.25em] text-olive opacity-70">Legal</span>
+      <h2 class="text-3xl font-extrabold text-gray-900 mt-2 leading-tight">Warranty & Service<br><span class="italic font-light text-olive">Conditions</span></h2>
+      <p class="text-sm text-gray-500 mt-2">Contact: <a href="mailto:miniwash@outlook.es" class="text-olive font-bold hover:underline">miniwash@outlook.es</a></p>
+    </div>
+
+    <div class="space-y-5">
+      
+      <div class="p-5 bg-gradient-to-br from-[#f5f9ee] to-[#eef4e4] rounded-2xl border border-olive/15">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xl">🛡️</span>
+          <h3 class="font-bold text-gray-900 text-base">Legal Warranty</h3>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">In accordance with EU law, MINIWASH® provides a <strong class="text-gray-800">3-year warranty</strong> against manufacturing defects. Damage from misuse or wear is not covered.</p>
+      </div>
+
+      <div class="p-5 bg-gradient-to-br from-[#f5f9ee] to-[#eef4e4] rounded-2xl border border-olive/15">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xl">📦</span>
+          <h3 class="font-bold text-gray-900 text-base">Return Policy</h3>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Returns accepted within <strong class="text-gray-800">30 days of delivery</strong>. Customer must provide high-definition photos and a continuous video showing product condition. Without visual evidence, the request is automatically void.</p>
+      </div>
+
+      <div class="p-5 bg-gradient-to-br from-[#f5f9ee] to-[#eef4e4] rounded-2xl border border-olive/15">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xl">🔒</span>
+          <h3 class="font-bold text-gray-900 text-base">Data Privacy</h3>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Personal data is collected only after purchase and used exclusively to process shipment. All data will be <strong class="text-gray-800">permanently deleted</strong> once the business cycle ends.</p>
+      </div>
+
+      <div class="p-5 bg-gradient-to-br from-[#f5f9ee] to-[#eef4e4] rounded-2xl border border-olive/15">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-xl">📧</span>
+          <h3 class="font-bold text-gray-900 text-base">Email Protocol</h3>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed mb-3">For our <strong class="text-gray-800">30-minute response</strong>, subject lines must follow this format:</p>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 bg-white rounded-xl p-3 border border-olive/15">
+            <span class="text-xs font-black uppercase tracking-wider text-olive bg-olive/10 px-2 py-1 rounded-lg">Returns</span>
+            <code class="text-sm font-bold text-gray-800">RETURN [Order Number]</code>
+          </div>
+          <div class="flex items-center gap-3 bg-white rounded-xl p-3 border border-olive/15">
+            <span class="text-xs font-black uppercase tracking-wider text-olive bg-olive/10 px-2 py-1 rounded-lg">Questions</span>
+            <code class="text-sm font-bold text-gray-800">QUERY [Order Number]</code>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3 italic">Emails outside this protocol are not guaranteed a response.</p>
+      </div>
+
+    </div>
+
+    <button id="backToReserveBtn" class="mt-8 w-full bg-olive text-white py-4 rounded-2xl font-bold text-base hover:bg-opacity-90 transition shadow-lg">
+      ← Back to Reservation
+    </button>
+  </div>
+</div>
+
   <!-- RESERVATION MODAL -->
   <div id="reserveModal"
      class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/40 backdrop-blur-md p-4"
@@ -1034,7 +1099,7 @@ const INDEX = `<!doctype html>
         </div>
 
         <p class="text-xs text-gray-600 text-center font-medium">
-          By reserving you accept our <a href="#" class="text-olive hover:underline font-bold">Terms & Conditions</a>
+          By reserving you accept our <a href="#" id="openTermsLink" class="text-olive hover:underline font-bold cursor-pointer">Terms & Conditions</a>
         </p>
       </form>
     </div>
@@ -1282,6 +1347,47 @@ const INDEX = `<!doctype html>
         }, 1000);
       });
     }
+
+
+    // TERMS MODAL
+    const termsModal = document.getElementById('termsModal');
+    const openTermsLink = document.getElementById('openTermsLink');
+    const closeTermsModal = document.getElementById('closeTermsModal');
+    const backToReserveBtn = document.getElementById('backToReserveBtn');
+
+    if (openTermsLink) {
+      openTermsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Cierra modal de reserva
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        // Abre terms
+        termsModal.classList.remove('hidden');
+        termsModal.classList.add('flex');
+      });
+    }
+
+    function closeTerms() {
+      termsModal.classList.add('hidden');
+      termsModal.classList.remove('flex');
+    }
+
+    if (closeTermsModal) closeTermsModal.addEventListener('click', closeTerms);
+    
+    if (backToReserveBtn) {
+      backToReserveBtn.addEventListener('click', () => {
+        closeTerms();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+    }
+
+    termsModal.addEventListener('click', (e) => {
+      if (e.target === termsModal) closeTerms();
+    });
+
+  });
+</script>
 
     // TESTIMONIALS
     document.querySelectorAll('.testimonial-dot').forEach(dot => {
