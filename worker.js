@@ -528,28 +528,28 @@ const INDEX = `<!doctype html>
     body.modal-open .group .absolute {
       visibility: hidden;
     }
-    .faq-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.faq-b-card{background:linear-gradient(135deg,#f9faf8 0%,#f0f4ee 100%);border:1.5px solid rgba(85,107,47,0.1);border-radius:1.5rem;padding:2rem;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);display:flex;flex-direction:column;gap:0.75rem}
-.faq-b-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 10%,rgba(85,107,47,0.07) 0%,transparent 60%);opacity:0;transition:opacity 0.35s ease}
+   .faq-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.faq-b-card{background:#fff;border:2px solid rgba(85,107,47,0.12);border-radius:2rem;padding:2.5rem;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);display:flex;flex-direction:column;gap:1rem;box-shadow:0 4px 24px rgba(85,107,47,0.06)}
+.faq-b-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 10%,rgba(85,107,47,0.06) 0%,transparent 60%);opacity:0;transition:opacity 0.35s ease}
 .faq-b-card:hover::before{opacity:1}
-.faq-b-card:hover{transform:translateY(-6px);border-color:rgba(85,107,47,0.3);box-shadow:0 20px 48px rgba(85,107,47,0.14)}
+.faq-b-card:hover{transform:translateY(-8px);border-color:rgba(85,107,47,0.35);box-shadow:0 28px 56px rgba(85,107,47,0.16)}
 .faq-b-wide{grid-column:span 2}
 .faq-b-guarantee{grid-column:span 2}
-.faq-b-dark{background:linear-gradient(135deg,#2d3f1a 0%,#3d5220 100%);border-color:rgba(85,107,47,0.4)}
-.faq-b-dark h4{color:#d4e8a0}
-.faq-b-dark p{color:rgba(255,255,255,0.75)}
-.faq-b-dark .faq-b-tag{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)}
-.faq-b-dark .faq-b-icon{background:rgba(255,255,255,0.1)}
-.faq-b-stat{background:linear-gradient(135deg,#EEF4E4 0%,#deecc4 100%);border-color:rgba(85,107,47,0.25)}
-.faq-b-icon{width:44px;height:44px;background:rgba(85,107,47,0.12);border-radius:0.875rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;transition:transform 0.3s ease}
-.faq-b-card:hover .faq-b-icon{transform:scale(1.1) rotate(-3deg)}
-.faq-b-card h4{font-size:1.1rem;font-weight:800;color:#1a2a0e;line-height:1.25}
-.faq-b-card p{font-size:0.875rem;color:#475569;line-height:1.65;flex:1}
-.faq-b-tag{display:inline-block;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;background:rgba(85,107,47,0.1);color:#556B2F;padding:0.25rem 0.65rem;border-radius:999px;width:fit-content;margin-top:auto}
-.faq-b-bignum{font-size:3.5rem;font-weight:900;color:var(--olive);line-height:1;letter-spacing:-0.04em}
-.faq-b-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0}
-.faq-b-pills span{background:rgba(85,107,47,0.1);color:#2d4a10;border:1.5px solid rgba(85,107,47,0.2);padding:0.4rem 0.9rem;border-radius:999px;font-size:0.8rem;font-weight:700}
-@media(max-width:768px){.faq-bento{grid-template-columns:1fr}.faq-b-wide,.faq-b-guarantee{grid-column:span 1}.faq-b-bignum{font-size:2.5rem}}
+.faq-b-dark{background:linear-gradient(135deg,#eef4e6 0%,#deecc4 100%);border-color:rgba(85,107,47,0.25)}
+.faq-b-dark h4{color:#2a3d10}
+.faq-b-dark p{color:#3d5520}
+.faq-b-dark .faq-b-tag{background:rgba(85,107,47,0.15);color:#3a5018}
+.faq-b-dark .faq-b-icon{background:rgba(85,107,47,0.15)}
+.faq-b-stat{background:linear-gradient(135deg,#f5f9ee 0%,#e8f2d4 100%);border-color:rgba(85,107,47,0.2)}
+.faq-b-icon{width:52px;height:52px;background:rgba(85,107,47,0.1);border-radius:1rem;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;transition:transform 0.3s ease}
+.faq-b-card:hover .faq-b-icon{transform:scale(1.12) rotate(-4deg)}
+.faq-b-card h4{font-size:1.4rem;font-weight:800;color:#1a2a0e;line-height:1.2;letter-spacing:-0.02em}
+.faq-b-card p{font-size:1.05rem;color:#4a5568;line-height:1.75;flex:1}
+.faq-b-tag{display:inline-block;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;background:rgba(85,107,47,0.1);color:#556B2F;padding:0.3rem 0.8rem;border-radius:999px;width:fit-content;margin-top:auto}
+.faq-b-bignum{font-size:4.5rem;font-weight:900;color:var(--olive);line-height:1;letter-spacing:-0.05em}
+.faq-b-pills{display:flex;flex-wrap:wrap;gap:0.6rem;margin:0.75rem 0}
+.faq-b-pills span{background:rgba(85,107,47,0.08);color:#2d4a10;border:2px solid rgba(85,107,47,0.18);padding:0.5rem 1.1rem;border-radius:999px;font-size:0.9rem;font-weight:700}
+@media(max-width:768px){.faq-bento{grid-template-columns:1fr}.faq-b-wide,.faq-b-guarantee{grid-column:span 1}.faq-b-bignum{font-size:3rem}}
 
   </style>
 
