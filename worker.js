@@ -830,33 +830,52 @@ const INDEX = `<!doctype html>
         <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-gray-900">Frequently asked questions</h3>
         <div class="space-y-4 max-w-3xl">
           <details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-            <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-              How long does a disinfection cycle take?
-              <span class="transition group-open:rotate-180 text-olive">▼</span>
-            </summary>
-            <div class="mt-4 text-sm text-gray-700 leading-relaxed">Short cycles (10–20 min) for small garments; UV mode can be activated at end of cycle.</div>
-          </details>
-          <details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-            <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-              Can I use regular detergent?
-              <span class="transition group-open:rotate-180 text-olive">▼</span>
-            </summary>
-            <div class="mt-4 text-sm text-gray-700 leading-relaxed">Yes — we recommend liquid detergents for small loads. Don't use aggressive bleaches.</div>
-          </details>
-          <details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-            <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-              What's your warranty?
-              <span class="transition group-open:rotate-180 text-olive">▼</span>
-            </summary>
-            <div class="mt-4 text-sm text-gray-700 leading-relaxed">Shop with confidence; support via email and phone. 2-year complete warranty + 30-day money back guarantee. Documentation included.</div>
-          </details>
-          <details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-            <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-              What's the actual water consumption?
-              <span class="transition group-open:rotate-180 text-olive">▼</span>
-            </summary>
-            <div class="mt-4 text-sm text-gray-700 leading-relaxed">MINIWASH uses approx. 10-15L per cycle vs 80-100L for standard washers. Guaranteed 50% savings.</div>
-          </details>
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    What's the capacity and what can I wash in it?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">8-12L capacity. Perfect for baby clothes, delicates, underwear, socks, gym wear, and small towels. Not designed for jeans, bedding, or large garments.</div>
+</details>
+
+<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    How does UV disinfection work? Is it safe?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">UV-C light (254nm wavelength) eliminates 99.9% of bacteria and viruses without chemicals. Activated only after the wash cycle completes. Completely safe for fabrics and skin.</div>
+</details>
+
+<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    Does it need special plumbing or installation?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">No installation required. Plug into any standard outlet. Fill with water using included pitcher or shower hose adapter. Drains via bottom hose into sink or bucket.</div>
+</details>
+
+<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    What about warranty and return policy?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">2-year manufacturer warranty covers all defects. 30-day money-back guarantee if you're not satisfied. Email support responds within 24 hours. Return shipping covered.</div>
+</details>
+
+<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    Can I use this while traveling or in an RV?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">Yes. Folds to 6cm thickness, fits in carry-on luggage. Works on 110-240V (includes universal adapter). Uses minimal power — compatible with RV electrical systems.</div>
+</details>
+
+<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
+  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
+    How much water and energy does it actually save?
+    <span class="transition group-open:rotate-180 text-olive">▼</span>
+  </summary>
+  <div class="mt-4 text-sm text-gray-700 leading-relaxed">Uses 10-15L per cycle vs 80-100L for standard machines (50-80% savings). Consumes only 150W power. Average user saves 300L water and €40/year on utility bills.</div>
+</details>
         </div>
       </section>
 
