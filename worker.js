@@ -209,6 +209,7 @@ const CONFIRMATION_PAGE = `<!doctype html>
   </script>
 </body>
 </html>`;
+
 const INDEX = `<!doctype html>
 <html lang="en">
 <head>
@@ -905,9 +906,17 @@ const INDEX = `<!doctype html>
       <footer class="py-10 border-t-2 border-gray-200 mt-16">
         <div class="max-w-[var(--content-width)] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="text-sm text-gray-700 font-medium">© <strong>MINIWASH®</strong> — All rights reserved</div>
-          <div class="flex gap-6 items-center text-sm text-gray-700 font-medium">
+             <div class="flex gap-6 items-center text-sm text-gray-700 font-medium">
             <a href="#" id="footerTermsLink" class="hover:text-olive transition duration-300 font-bold cursor-pointer">Terms & Conditions</a>
+            <span class="text-gray-400">|</span>
+            <span class="text-gray-600">® MINIWASH is a registered trademark. All rights reserved.</span>
           </div>
+          <div class="text-xs text-gray-500 mt-3 text-center md:text-right">
+            By completing a purchase, 2 files are automatically saved to your device:
+            <a href="https://drive.google.com/uc?export=download&id=1uQsP7jt7yxmb9ANbzC5NdEdAUUknT-7W" class="text-olive underline font-bold ml-1">terms-and-conditions.pdf</a> ·
+            <a href="https://drive.google.com/uc?export=download&id=1Fj4eIy0u4RNmfl2UoDpQuH84OzI3vpWH" class="text-olive underline font-bold ml-1">trademark-rights.pdf</a>
+          </div>
+          
         </div>
       </footer>
     </section>
