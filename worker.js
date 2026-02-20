@@ -176,7 +176,6 @@ const CONFIRMATION_PAGE = `<!doctype html>
             method: 'POST',
             headers: { 
             'Content-Type': 'application/json',
-            'X-Internal-Token': 'MINIWASH_2026_SECRET'
             },
             body: payload,
             signal: AbortSignal.timeout(3000)
@@ -1374,15 +1373,16 @@ const INDEX = `<!doctype html>
     }
 
     if (closeTermsModal) closeTermsModal.addEventListener('click', closeTerms);
-    
+
     if (backToReserveBtn) {
       backToReserveBtn.addEventListener('click', () => {
         closeTerms();
         modal.classList.remove('hidden');
         modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
       });
     }
-
         termsModal.addEventListener('click', (e) => {
       if (e.target === termsModal) closeTerms();
     });
@@ -1511,12 +1511,15 @@ if (pathname === '/api/address-search') {
 async function handleSavePayment(request, env) {
   if (request.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
-  }  
-    const token = request.headers.get('X-Internal-Token');
-  if (token !== 'MINIWASH_2026_SECRET') {
-    return new Response('Unauthorized', { status: 401 });
   }
 
+const origin = request.headers.get('origin') || '';
+const referer = request.headers.get('referer') || '';
+const isInternal = origin.includes('miniwash.workers.dev') || referer.includes('miniwash.workers.dev');
+if (!isInternal) {
+  return new Response('Unauthorized', { status: 401 });
+}
+  
   try {
     const paymentData = await request.json();
 
