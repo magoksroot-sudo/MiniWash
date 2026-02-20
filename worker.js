@@ -725,9 +725,10 @@ const INDEX = `<!doctype html>
           <p class="mt-6 text-sm text-gray-700 leading-relaxed font-medium">Careful delivery, tracking included • Shop with confidence • Secure payment</p>
 
           <div class="mt-8 text-sm text-gray-800 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-olive/10">
-            <div class="font-bold">📦 Available Stock: <span class="text-olive" id="stockCount">25</span></div>
-            <div class="mt-2 text-xs text-orange-600 font-semibold" id="scarcityText" aria-live="polite">⚡ Only a few units left</div>
-          </div>
+  <div class="font-bold">🚀 Pre-Order Launch Price: <span class="text-olive">€49</span></div>
+  <div class="mt-2 text-xs text-gray-700 font-semibold">📅 Estimated delivery: March 15-20, 2026</div>
+  <div class="mt-1 text-xs text-gray-600">Regular retail price: €89</div>
+</div>
 
           <!-- GUARANTEE -->
           <div class="mt-8 space-y-3 text-xs text-gray-700">
