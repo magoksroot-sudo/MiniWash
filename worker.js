@@ -528,6 +528,28 @@ const INDEX = `<!doctype html>
     body.modal-open .group .absolute {
       visibility: hidden;
     }
+    .faq-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.faq-b-card{background:linear-gradient(135deg,#f9faf8 0%,#f0f4ee 100%);border:1.5px solid rgba(85,107,47,0.1);border-radius:1.5rem;padding:2rem;position:relative;overflow:hidden;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);display:flex;flex-direction:column;gap:0.75rem}
+.faq-b-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 10%,rgba(85,107,47,0.07) 0%,transparent 60%);opacity:0;transition:opacity 0.35s ease}
+.faq-b-card:hover::before{opacity:1}
+.faq-b-card:hover{transform:translateY(-6px);border-color:rgba(85,107,47,0.3);box-shadow:0 20px 48px rgba(85,107,47,0.14)}
+.faq-b-wide{grid-column:span 2}
+.faq-b-guarantee{grid-column:span 2}
+.faq-b-dark{background:linear-gradient(135deg,#2d3f1a 0%,#3d5220 100%);border-color:rgba(85,107,47,0.4)}
+.faq-b-dark h4{color:#d4e8a0}
+.faq-b-dark p{color:rgba(255,255,255,0.75)}
+.faq-b-dark .faq-b-tag{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)}
+.faq-b-dark .faq-b-icon{background:rgba(255,255,255,0.1)}
+.faq-b-stat{background:linear-gradient(135deg,#EEF4E4 0%,#deecc4 100%);border-color:rgba(85,107,47,0.25)}
+.faq-b-icon{width:44px;height:44px;background:rgba(85,107,47,0.12);border-radius:0.875rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;transition:transform 0.3s ease}
+.faq-b-card:hover .faq-b-icon{transform:scale(1.1) rotate(-3deg)}
+.faq-b-card h4{font-size:1.1rem;font-weight:800;color:#1a2a0e;line-height:1.25}
+.faq-b-card p{font-size:0.875rem;color:#475569;line-height:1.65;flex:1}
+.faq-b-tag{display:inline-block;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;background:rgba(85,107,47,0.1);color:#556B2F;padding:0.25rem 0.65rem;border-radius:999px;width:fit-content;margin-top:auto}
+.faq-b-bignum{font-size:3.5rem;font-weight:900;color:var(--olive);line-height:1;letter-spacing:-0.04em}
+.faq-b-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0.5rem 0}
+.faq-b-pills span{background:rgba(85,107,47,0.1);color:#2d4a10;border:1.5px solid rgba(85,107,47,0.2);padding:0.4rem 0.9rem;border-radius:999px;font-size:0.8rem;font-weight:700}
+@media(max-width:768px){.faq-bento{grid-template-columns:1fr}.faq-b-wide,.faq-b-guarantee{grid-column:span 1}.faq-b-bignum{font-size:2.5rem}}
 
   </style>
 
@@ -825,89 +847,58 @@ const INDEX = `<!doctype html>
         </div>
       </section>
 
-          <!-- FAQ -->
-<section id="faq" class="py-16 max-w-[var(--content-width)] mx-auto px-6">
-  <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-center text-gray-900">Questions? We've got answers</h3>
-  <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-    
-    <!-- FAQ Card 1 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          📦
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">What's the capacity and what can I wash in it?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">8-12L capacity. Perfect for baby clothes, delicates, underwear, socks, gym wear, and small towels. Not designed for jeans, bedding, or large garments.</p>
-        </div>
-      </div>
+         <!-- FAQ -->
+<section id="faq" class="py-20 px-6 max-w-[var(--content-width)] mx-auto">
+  <div class="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+    <div>
+      <span class="inline-block text-xs font-black uppercase tracking-[0.3em] text-olive mb-3 opacity-70">Support</span>
+      <h3 class="text-5xl md:text-6xl font-extrabold leading-[1.05] text-gray-900">Got<br><span class="italic font-light text-olive">questions?</span></h3>
     </div>
-
-    <!-- FAQ Card 2 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          💡
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">How does UV disinfection work? Is it safe?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">UV-C light (254nm wavelength) eliminates 99.9% of bacteria and viruses without chemicals. Activated only after the wash cycle completes. Completely safe for fabrics and skin.</p>
-        </div>
-      </div>
+    <p class="text-gray-500 text-base max-w-xs leading-relaxed md:text-right font-medium">Everything you need to know about MINIWASH® before you reserve.</p>
+  </div>
+  <div class="faq-bento">
+    <div class="faq-b-card faq-b-wide">
+      <div class="faq-b-icon">📦</div>
+      <h4>What can I wash in it?</h4>
+      <p>8–12L capacity. Ideal for baby clothes, delicates, underwear, socks, gym wear and small towels. Not designed for jeans, bedding or bulky garments.</p>
+      <div class="faq-b-tag">Capacity</div>
     </div>
-
-    <!-- FAQ Card 3 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          🔌
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">Does it need special plumbing or installation?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">No installation required. Plug into any standard outlet. Fill with water using included pitcher or shower hose adapter. Drains via bottom hose into sink or bucket.</p>
-        </div>
-      </div>
+    <div class="faq-b-card faq-b-dark">
+      <div class="faq-b-icon">💡</div>
+      <h4>How does UV work?</h4>
+      <p>UV-C at 254nm eliminates 99.9% of bacteria & viruses — zero chemicals, activates post-cycle. Safe for fabrics and skin.</p>
+      <div class="faq-b-tag">Hygiene</div>
     </div>
-
-    <!-- FAQ Card 4 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          ✅
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">What about warranty and return policy?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">2-year manufacturer warranty covers all defects. 30-day money-back guarantee if you're not satisfied. Email support responds within 24 hours. Return shipping covered.</p>
-        </div>
-      </div>
+    <div class="faq-b-card faq-b-stat">
+      <div class="faq-b-icon">💧</div>
+      <div class="faq-b-bignum">−80%</div>
+      <h4>Water saved</h4>
+      <p>10–15L per cycle vs 80–100L standard. Saves ~300L/month and €40/year on bills.</p>
+      <div class="faq-b-tag">Eco</div>
     </div>
-
-    <!-- FAQ Card 5 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          ✈️
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">Can I use this while traveling or in an RV?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">Yes. Folds to 6cm thickness, fits in carry-on luggage. Works on 110-240V (includes universal adapter). Uses minimal power — compatible with RV electrical systems.</p>
-        </div>
-      </div>
+    <div class="faq-b-card">
+      <div class="faq-b-icon">🔌</div>
+      <h4>No plumbing needed</h4>
+      <p>Plug into any outlet. Fill via included pitcher or shower adapter. Drains through bottom hose into sink or bucket.</p>
+      <div class="faq-b-tag">Setup</div>
     </div>
-
-    <!-- FAQ Card 6 -->
-    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
-      <div class="flex items-start gap-4">
-        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-          💧
-        </div>
-        <div class="flex-1">
-          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">How much water and energy does it actually save?</h4>
-          <p class="text-sm text-gray-600 leading-relaxed">Uses 10-15L per cycle vs 80-100L for standard machines (50-80% savings). Consumes only 150W power. Average user saves 300L water and €40/year on utility bills.</p>
-        </div>
-      </div>
+    <div class="faq-b-card">
+      <div class="faq-b-icon">✈️</div>
+      <h4>Travel-ready</h4>
+      <p>Folds to 6cm. Fits carry-on. Works 110–240V worldwide. RV-compatible low power draw.</p>
+      <div class="faq-b-tag">Travel</div>
     </div>
-
+    <div class="faq-b-card faq-b-guarantee">
+      <div class="faq-b-icon">✅</div>
+      <h4>Risk-free guarantee</h4>
+      <div class="faq-b-pills">
+        <span>30-day returns</span>
+        <span>2-yr warranty</span>
+        <span>24h support</span>
+        <span>Free return shipping</span>
+      </div>
+      <div class="faq-b-tag">Trust</div>
+    </div>
   </div>
 </section>
 
