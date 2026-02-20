@@ -907,8 +907,7 @@ const INDEX = `<!doctype html>
         <div class="max-w-[var(--content-width)] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="text-sm text-gray-700 font-medium">© <strong>MINIWASH®</strong> — All rights reserved</div>
           <div class="flex gap-6 items-center text-sm text-gray-700 font-medium">
-            <a href="#" class="hover:text-olive transition duration-300">Shipping Policy</a>
-            <a href="#" class="hover:text-olive transition duration-300">Support & Trust</a>
+            <a href="#" id="footerTermsLink" class="hover:text-olive transition duration-300 font-bold cursor-pointer">Terms & Conditions</a>
           </div>
         </div>
       </footer>
@@ -1370,6 +1369,8 @@ const INDEX = `<!doctype html>
     function closeTerms() {
       termsModal.classList.add('hidden');
       termsModal.classList.remove('flex');
+      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     }
 
     if (closeTermsModal) closeTermsModal.addEventListener('click', closeTerms);
@@ -1382,12 +1383,19 @@ const INDEX = `<!doctype html>
       });
     }
 
-    termsModal.addEventListener('click', (e) => {
+        termsModal.addEventListener('click', (e) => {
       if (e.target === termsModal) closeTerms();
     });
 
-  });
-</script>
+    const footerTermsLink = document.getElementById('footerTermsLink');
+    if (footerTermsLink) {
+      footerTermsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        termsModal.classList.remove('hidden');
+        termsModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      });
+    }
 
     // TESTIMONIALS
     document.querySelectorAll('.testimonial-dot').forEach(dot => {
@@ -1395,27 +1403,24 @@ const INDEX = `<!doctype html>
         const index = parseInt(dot.dataset.index);
         const testimonials = document.querySelectorAll('.testimonial');
         const dots = document.querySelectorAll('.testimonial-dot');
-
         testimonials.forEach((t, i) => {
-            if(i === index) t.classList.remove('hidden');
-            else t.classList.add('hidden');
+          if(i === index) t.classList.remove('hidden');
+          else t.classList.add('hidden');
         });
-        
         dots.forEach((d, i) => {
-            if(i === index) { 
-              d.classList.remove('bg-gray-300'); 
-              d.classList.add('bg-olive'); 
-            }
-            else { 
-              d.classList.add('bg-gray-300'); 
-              d.classList.remove('bg-olive'); 
-            }
+          if(i === index) {
+            d.classList.remove('bg-gray-300');
+            d.classList.add('bg-olive');
+          } else {
+            d.classList.add('bg-gray-300');
+            d.classList.remove('bg-olive');
+          }
         });
       });
     });
 
   });
-<\/script>
+</script>
 
 </body>
 </html>`;
