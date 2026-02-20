@@ -638,18 +638,33 @@ const INDEX = `<!doctype html>
           <div id="hero-slider" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-hero shadow-2xl" style="scrollbar-width: none; -ms-overflow-style: none;">
             
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://i.postimg.cc/bYFL1rft/Gemini-Generated-Image-mqx9cfmqx9cfmqx9.png" class="w-full h-full object-cover" alt="Miniwash 1">
+              <img src="https://i.postimg.cc/C54YhKWQ/Anade-algo-de-texto-(1).png" class="w-full h-full object-contain bg-white" alt="Miniwash 1">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://tu-url-aqui.com/foto2.jpg" class="w-full h-full object-cover" alt="Miniwash 2">
+              <img src="https://i.postimg.cc/nhrZxpT3/Anade-algo-de-texto-(3).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+            </div>
+
+            <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
+              <img src="https://i.postimg.cc/6qBJmXyj/Anade-algo-de-texto-(2).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+            </div>
+
+            <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
+              <img src="https://i.postimg.cc/zBjP3RGp/Anade-algo-de-texto.png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+            </div>
+
+            <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
+              <img src="https://i.postimg.cc/vBQ0RHLC/Water-Expenditure.png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
             </div>
 
           </div>
 
-          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-             <div class="w-2.5 h-2.5 rounded-full bg-white shadow-lg transition-all duration-300 hover:scale-125 cursor-pointer"></div>
-             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg transition-all duration-300 hover:scale-125 hover:bg-white/80 cursor-pointer"></div>
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20" id="sliderDots">
+             <div class="w-2.5 h-2.5 rounded-full bg-white shadow-lg cursor-pointer" data-slide="0"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg cursor-pointer" data-slide="1"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg cursor-pointer" data-slide="2"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg cursor-pointer" data-slide="3"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-white/60 shadow-lg cursor-pointer" data-slide="4"></div>
           </div>
 
           <div class="absolute -top-8 -left-6 hidden md:block bg-white p-5 rounded-2xl shadow-2xl z-30 border border-olive/15 backdrop-blur-sm">
@@ -1395,6 +1410,27 @@ const INDEX = `<!doctype html>
         termsModal.addEventListener('click', (e) => {
       if (e.target === termsModal) closeTerms();
     });
+
+      
+      // HERO SLIDER
+    const heroSlider = document.getElementById('hero-slider');
+    const sliderDots = document.querySelectorAll('#sliderDots [data-slide]');
+    if (heroSlider && sliderDots.length) {
+      sliderDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.slide);
+          const slideWidth = heroSlider.offsetWidth;
+          heroSlider.scrollTo({ left: slideWidth * index, behavior: 'smooth' });
+        });
+      });
+      heroSlider.addEventListener('scroll', () => {
+        const index = Math.round(heroSlider.scrollLeft / heroSlider.offsetWidth);
+        sliderDots.forEach((d, i) => {
+          d.classList.toggle('bg-white', i === index);
+          d.classList.toggle('bg-white/60', i !== index);
+        });
+      });
+    }
 
     const footerTermsLink = document.getElementById('footerTermsLink');
     if (footerTermsLink) {
