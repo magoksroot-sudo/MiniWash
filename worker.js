@@ -825,59 +825,91 @@ const INDEX = `<!doctype html>
         </div>
       </section>
 
-      <!-- FAQ -->
-      <section id="faq" class="py-16 max-w-[var(--content-width)] mx-auto px-6">
-        <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-gray-900">Frequently asked questions</h3>
-        <div class="space-y-4 max-w-3xl">
-          <details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    What's the capacity and what can I wash in it?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">8-12L capacity. Perfect for baby clothes, delicates, underwear, socks, gym wear, and small towels. Not designed for jeans, bedding, or large garments.</div>
-</details>
-
-<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    How does UV disinfection work? Is it safe?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">UV-C light (254nm wavelength) eliminates 99.9% of bacteria and viruses without chemicals. Activated only after the wash cycle completes. Completely safe for fabrics and skin.</div>
-</details>
-
-<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    Does it need special plumbing or installation?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">No installation required. Plug into any standard outlet. Fill with water using included pitcher or shower hose adapter. Drains via bottom hose into sink or bucket.</div>
-</details>
-
-<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    What about warranty and return policy?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">2-year manufacturer warranty covers all defects. 30-day money-back guarantee if you're not satisfied. Email support responds within 24 hours. Return shipping covered.</div>
-</details>
-
-<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    Can I use this while traveling or in an RV?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">Yes. Folds to 6cm thickness, fits in carry-on luggage. Works on 110-240V (includes universal adapter). Uses minimal power — compatible with RV electrical systems.</div>
-</details>
-
-<details class="p-6 bg-white border-2 border-gray-200 rounded-2xl group cursor-pointer hover:border-olive/40 transition">
-  <summary class="font-bold text-gray-900 flex justify-between items-center text-base">
-    How much water and energy does it actually save?
-    <span class="transition group-open:rotate-180 text-olive">▼</span>
-  </summary>
-  <div class="mt-4 text-sm text-gray-700 leading-relaxed">Uses 10-15L per cycle vs 80-100L for standard machines (50-80% savings). Consumes only 150W power. Average user saves 300L water and €40/year on utility bills.</div>
-</details>
+          <!-- FAQ -->
+<section id="faq" class="py-16 max-w-[var(--content-width)] mx-auto px-6">
+  <h3 class="text-4xl md:text-5xl font-extrabold mb-10 text-center text-gray-900">Questions? We've got answers</h3>
+  <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+    
+    <!-- FAQ Card 1 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          📦
         </div>
-      </section>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">What's the capacity and what can I wash in it?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">8-12L capacity. Perfect for baby clothes, delicates, underwear, socks, gym wear, and small towels. Not designed for jeans, bedding, or large garments.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Card 2 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          💡
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">How does UV disinfection work? Is it safe?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">UV-C light (254nm wavelength) eliminates 99.9% of bacteria and viruses without chemicals. Activated only after the wash cycle completes. Completely safe for fabrics and skin.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Card 3 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          🔌
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">Does it need special plumbing or installation?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">No installation required. Plug into any standard outlet. Fill with water using included pitcher or shower hose adapter. Drains via bottom hose into sink or bucket.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Card 4 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          ✅
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">What about warranty and return policy?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">2-year manufacturer warranty covers all defects. 30-day money-back guarantee if you're not satisfied. Email support responds within 24 hours. Return shipping covered.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Card 5 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          ✈️
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">Can I use this while traveling or in an RV?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">Yes. Folds to 6cm thickness, fits in carry-on luggage. Works on 110-240V (includes universal adapter). Uses minimal power — compatible with RV electrical systems.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Card 6 -->
+    <div class="faq-card group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 hover:border-olive/40 hover:shadow-2xl transition-all duration-300 cursor-pointer">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 flex-shrink-0 bg-gradient-to-br from-olive/20 to-olive/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+          💧
+        </div>
+        <div class="flex-1">
+          <h4 class="font-bold text-gray-900 text-base mb-2 group-hover:text-olive transition-colors">How much water and energy does it actually save?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">Uses 10-15L per cycle vs 80-100L for standard machines (50-80% savings). Consumes only 150W power. Average user saves 300L water and €40/year on utility bills.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       <!-- FOOTER -->
       <footer class="py-10 border-t-2 border-gray-200 mt-16">
