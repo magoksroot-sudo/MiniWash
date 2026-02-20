@@ -726,7 +726,7 @@ const INDEX = `<!doctype html>
 
           <div class="mt-8 text-sm text-gray-800 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-olive/10">
   <div class="font-bold">🚀 Pre-Order Launch Price: <span class="text-olive">€49</span></div>
-  <div class="mt-2 text-xs text-gray-700 font-semibold">📅 Estimated delivery: March 15-20, 2026</div>
+  <div class="mt-2 text-xs text-gray-700 font-semibold">📅 Estimated delivery: <span id="deliveryDate">Loading...</span></div>
   <div class="mt-1 text-xs text-gray-600">Regular retail price: €89</div>
 </div>
 
@@ -1006,6 +1006,14 @@ const INDEX = `<!doctype html>
       EUR: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=EUR&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&successRedirectUrl=https://miniwash.miniwash.workers.dev/pago-confirmado&failureRedirectUrl=https://miniwash.miniwash.workers.dev/',
       USD: 'https://buy.onramper.com/?defaultAmount=49&fiatAmount=49&defaultFiat=USD&defaultCrypto=USDT_POLYGON&address=0xecfdaf07bcb29f3eeb07bafefdff67ca25dffcd5&isAmountEditable=false&isAddressEditable=false&successRedirectUrl=https://miniwash.miniwash.workers.dev/pago-confirmado&failureRedirectUrl=https://miniwash.miniwash.workers.dev/'
     };
+   
+    const deliveryDateEl = document.getElementById('deliveryDate');
+    if (deliveryDateEl) {
+      const today = new Date();
+      const delivery = new Date(today.getTime() + (72 * 60 * 60 * 1000)); // +72 horas
+      const options = { month: 'long', day: 'numeric', year: 'numeric' };
+      deliveryDateEl.textContent = delivery.toLocaleDateString('en-US', options);
+    }
 
     const modal = document.getElementById('reserveModal');
     const reserveForm = document.getElementById('reserveForm');
