@@ -904,17 +904,29 @@ const INDEX = `<!doctype html>
       <p>Folds to 6cm. Fits carry-on. Works 110–240V worldwide. RV-compatible low power draw.</p>
       <div class="faq-b-tag">Travel</div>
     </div>
-    <div class="faq-b-card faq-b-guarantee">
-      <div class="faq-b-icon">✅</div>
-      <h4>Risk-free guarantee</h4>
-      <div class="faq-b-pills">
-        <span>30-day returns</span>
-        <span>2-yr warranty</span>
-        <span>24h support</span>
-        <span>Free return shipping</span>
-      </div>
-      <div class="faq-b-tag">Trust</div>
-    </div>
+    <div class="faq-b-card" style="grid-column:span 1">
+  <div class="faq-b-icon">✅</div>
+  <h4>Risk-free</h4>
+  <div class="faq-b-pills">
+    <span>30-day returns</span>
+    <span>2-yr warranty</span>
+    <span>24h support</span>
+  </div>
+  <div class="faq-b-tag">Trust</div>
+</div>
+
+<div class="faq-b-card" style="grid-column:span 1">
+  <div class="faq-b-icon">💳</div>
+  <h4>How payment works</h4>
+  <p style="font-size:0.95rem; line-height:1.9;">
+    1️⃣ Fill in your details<br>
+    2️⃣ Choose EUR or USD<br>
+    3️⃣ Pay via Visa, Mastercard, PayPal or bank transfer<br>
+    4️⃣ Instant confirmation by email<br>
+    5️⃣ Your order ships within 72h*
+  </p>
+  <div class="faq-b-tag">Payment</div>
+</div>
   </div>
 </section>
 
