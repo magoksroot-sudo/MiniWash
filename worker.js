@@ -786,10 +786,10 @@ const INDEX = `<!doctype html>
           <div class="mt-8 text-xs text-gray-700">
             <strong>Payment Methods:</strong>
             <div class="flex items-center justify-center gap-4 mt-4">
-              <img src="https://i.postimg.cc/K4tbRQxs/logo-monpay.png" alt="Monpay" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://i.postimg.cc/T3LVScQn/68716856.png" alt="Onramper" class="w-20 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://i.postimg.cc/hjFpMYBX/free-visa-icon-svg-download-png-226460.webp" alt="Visa" class="w-20 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="w-20 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-20 h-auto opacity-85 hover:opacity-100 transition" />
             </div>
           </div>
         </aside>
