@@ -787,8 +787,9 @@ const INDEX = `<!doctype html>
             <strong>Payment Methods:</strong>
             <div class="flex items-center justify-center gap-4 mt-4">
               <img src="https://i.postimg.cc/K4tbRQxs/logo-monpay.png" alt="Monpay" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
-              <img src="https://i.postimg.cc/Xp7nmd0Y/helio.avif" alt="Helio" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
-              <img src="https://i.postimg.cc/1g12h1NP/euro-and-dollar-money-logo-icon-sign-symbol-vector-removebg-preview.png" alt="Currency" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-auto opacity-85 hover:opacity-100 transition" />
             </div>
           </div>
         </aside>
