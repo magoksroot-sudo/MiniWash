@@ -638,19 +638,19 @@ const INDEX = `<!doctype html>
           <div id="hero-slider" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide rounded-hero shadow-2xl" style="scrollbar-width: none; -ms-overflow-style: none;">
             
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://i.postimg.cc/C54YhKWQ/Anade-algo-de-texto-(1).png" class="w-full h-full object-contain bg-white" alt="Miniwash 1">
+              <img src="https://i.postimg.cc/8kY9rZFw/Anade-algo-de-texto.png" class="w-full h-full object-contain bg-white" alt="Miniwash 1">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://i.postimg.cc/nhrZxpT3/Anade-algo-de-texto-(3).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+              <img src="https://i.postimg.cc/C1QPkKKB/Anade-algo-de-texto-(2).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://i.postimg.cc/6qBJmXyj/Anade-algo-de-texto-(2).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+              <img src="https://i.postimg.cc/BQH3Srhp/Anade-algo-de-texto-(1).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
-              <img src="https://i.postimg.cc/zBjP3RGp/Anade-algo-de-texto.png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
+              <img src="https://i.postimg.cc/65JsmH9K/Anade-algo-de-texto-(3).png" class="w-full h-full object-contain bg-white" alt="Miniwash 2">
             </div>
 
             <div class="min-w-full snap-center h-[350px] lg:h-[520px]">
